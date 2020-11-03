@@ -1,0 +1,37 @@
+<div class="nav tab mt-4">
+	<div class="tablinks active" data-toggle="tab" id="defaultOpen" data-target="#tab-1" [routerLink]="['/main/profile/', session.uid]" [ngClass]="{'active':router.url.includes('/main/profile')}">MY PROFILE</div>
+	<div class="tablinks" data-toggle="tab" data-target="#tab-2" [routerLink]="['/main/my-history']" [ngClass]="{'active':router.url.includes('/main/my-history')}">BILLING</div>
+	<div class="tablinks" data-toggle="tab" data-target="#tab-3" [routerLink]="['/manage/setup-address']" [ngClass]="{'active':router.url.includes('/manage/setup-address')}">ADDRESS BOOK</div>
+
+	<hr _ngcontent-mwv-c1="" class="pt-0 mt-0" style="size: 10px;">
+
+	<div *ngIf="appServices.privilege[session.uuid]">
+		<small class="px-2 py-1">Admin</small>
+		<div class="list-group-item border-0" [routerLink]="['/manage/setup-dashboard']" [ngClass]="{'active':router.url.includes('/manage/setup-dashboard')}">Dashboard</div>
+		<div class="list-group-item border-0" [routerLink]="['/manage/setup-order']" [ngClass]="{'active':router.url.includes('/manage/setup-order')}">Order</div>
+		<small class="px-2 py-1">Master Data</small>
+		<div class="list-group-item border-0" [routerLink]="['/manage/setup-courier']" [ngClass]="{'active':router.url.includes('/manage/setup-courier')}">Couriers</div>
+		<div class="list-group-item border-0" [routerLink]="['/manage/setup-customer']" [ngClass]="{'active':router.url.includes('/manage/setup-customer')}">Customers</div>
+		<div class="list-group-item border-0" [routerLink]="['/manage/setup-location']" [ngClass]="{'active':router.url.includes('/manage/setup-location')}">Location</div>
+		<small class="px-2 py-1">Support</small>
+		<div class="list-group-item border-0" [routerLink]="['/main/my-contact']" [ngClass]="{'active':router.url.includes('/main/my-contact')}">Contact</div>
+	</div>
+</div>
+
+
+<!-- <div class="list-group box-shadow">
+	<div class="list-group-item border-0" [routerLink]="['/main/profile/', session.uid]" [ngClass]="{'active':router.url.includes('/main/profile')}">MY PROFILE</div>
+	<div class="list-group-item border-0" [routerLink]="['/main/my-history']" [ngClass]="{'active':router.url.includes('/main/my-history')}">BILLING</div>
+	<div class="list-group-item border-0" [routerLink]="['/manage/setup-address']" [ngClass]="{'active':router.url.includes('/manage/setup-address')}">ADDRESS BOOK</div>
+	<div *ngIf="appServices.privilege[session.uuid]">
+		<small class="px-2 py-1">Admin</small>
+		<div class="list-group-item border-0" [routerLink]="['/manage/setup-dashboard']" [ngClass]="{'active':router.url.includes('/manage/setup-dashboard')}">Dashboard</div>
+		<div class="list-group-item border-0" [routerLink]="['/manage/setup-order']" [ngClass]="{'active':router.url.includes('/manage/setup-order')}">Order</div>
+		<small class="px-2 py-1">Master Data</small>
+		<div class="list-group-item border-0" [routerLink]="['/manage/setup-courier']" [ngClass]="{'active':router.url.includes('/manage/setup-courier')}">Couriers</div>
+		<div class="list-group-item border-0" [routerLink]="['/manage/setup-customer']" [ngClass]="{'active':router.url.includes('/manage/setup-customer')}">Customers</div>
+		<div class="list-group-item border-0" [routerLink]="['/manage/setup-location']" [ngClass]="{'active':router.url.includes('/manage/setup-location')}">Location</div>
+		<small class="px-2 py-1">Support</small>
+		<div class="list-group-item border-0" [routerLink]="['/main/my-contact']" [ngClass]="{'active':router.url.includes('/main/my-contact')}">Contact</div>
+	</div>
+</div> -->

@@ -1,0 +1,158 @@
+<app-header></app-header>
+<section class="bg-color" id="trap">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div align="right">
+                    <div class="trapezoid">
+                        <div class="outer-box">
+                            <a class="p-address">Addressbook</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="container">
+	<div class="row mt-3">
+		<!-- <div class="d-none d-sm-block col-sm-3 mb-3">
+			<app-my-menu></app-my-menu>
+		</div> -->
+		<div class="d-block d-sm-none position-fixed" style="z-index: 1">
+			<button type="button" class="btn btn-dark box-shadow" data-toggle="collapse" data-target="#clsMenu"><i class="fa fa-bars"></i></button>
+			<div id="clsMenu" class="collapse bg-white">
+				<app-my-menu></app-my-menu>
+			</div>
+		</div>
+		<div class="col-sm-12">
+			<app-my-menu></app-my-menu>
+			<!-- <div class="card-deck" style="margin-top: 30px;">
+				<div class="card text-white bg-primary">
+					<div class="card-body">
+						<div class="d-flex justify-content-between">
+							<h5 class="card-title">{{page.count}}</h5>
+							<i class="fa fa-2x fa-pencil"></i>
+						</div>
+						<p class="card-text">Total</p>
+					</div>
+				</div>
+				<div class="card text-white bg-warning">
+					<div class="card-body">
+						<div class="d-flex justify-content-between">
+							<h5 class="card-title">{{locations[0]?.updated_dt | amTimeAgo}}</h5>
+							<i class="fa fa-2x fa-clock-o"></i>
+						</div>
+						<p class="card-text">Latest</p>
+					</div>
+				</div>
+			</div> -->
+			<div class="d-flex justify-content-between" style="padding-top: 30px;">
+				<h4><b>Address Book</b></h4>
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEdit"> <i class="fa fa-plus"></i> </button>
+			</div>
+			<form #frmSearch="ngForm">
+				<div class="row no-gutters mb-3">
+					<div class="col-6 col-sm-8">
+						<app-input-group type="text" name="query" placeholder="Contact, Name, Address, Email" [data]="frmSearch" required="true"></app-input-group>
+					</div>
+					<div class="col-6 col-sm-4">
+						<button type="button" class="btn btn-primary" style="border-radius: 2px;" (click)="doLoad({'or':[{'phone':{'ilike': frmSearch['query']},'contact':{'ilike': frmSearch['query']},'address':{'ilike': frmSearch['query']},'email':{'ilike': frmSearch['query']}}]})">Search</button>
+					</div>
+				</div>
+			</form>
+			<div class="list-group table-responsive">
+				<div class="list-group-item" *ngFor="let data of locations" [ngClass]="{'bg-danger': data.deleted}">
+					<div class="d-flex justify-content-between">
+						<div>
+							<span class="badge badge-warning">{{data.lat}}</span><span class="badge badge-info">{{data.lng}}</span>
+							<p><strong>{{data.address}}</strong></p>
+							<p class="small m-0"><i class="fa fa-envelope-o"></i> {{data.email}}</p>
+							<p class="small m-0"><i class="fa fa-phone"></i> {{data.phone}}</p>
+							<p class="small m-0"><i class="fa fa-user"></i> {{data.contact}}</p>
+						</div>
+						<div>
+							<div class="btn-group">
+								<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalEdit" (click)="appServices.assignFrm(frmEdit, data)"><i class="fa fa-edit"></i></button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12 pbtm">
+				 <div class="col-md-12 pbtm bg1-color">
+				  <table class="scroll table_line">
+					  <thead>
+						  <tr>
+							  <th  style="text-align: center;">COUNTRY</th>
+							  <th  style="text-align: center;">CITY</th>
+							  <th  style="text-align: center;">ADDRESS</th>
+							  <th  style="text-align: center;">CONTACT DETAILS</th>
+							
+						  </tr>
+					  </thead>
+					  <tbody>
+						  <tr *ngFor="let address of addresses">
+							  <td>{{ address.country }}</td>
+							  <td>{{ address.city }}</td>
+							  <td>{{ address.address }},{{ address.suburb }}, {{ address.state }}, {{ address.zip }}</td>
+							  <td>{{ address.mobile }}</td>
+							  <td><input type="checkbox" class="form-controls"></td>						  
+						  </tr>
+					  </tbody>
+				  	</table>
+				 </div>	   
+				</div>
+				
+			</div>
+			<div class="d-flex justify-content-between p-3 box-shadow">
+				<div class="small text-muted my-auto"><b>{{locations.length}}</b> of <b>{{page.count}}</b> records</div>
+				<!-- <button type="button" class="btn btn-sm btn-dark" (click)="doLoad(filter, true)">More</button> -->
+			</div>
+		</div>
+	</div>
+</div>
+<div id="modalEdit" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+	<div class="modal-dialog modal-dialog-centered modal-lg">
+		<div class="modal-content">
+			<form #frmEdit="ngForm" autocomplete="off">
+				<input type="hidden" name="address" [(ngModel)]="frmEdit['address']">
+				<input type="hidden" name="state" [(ngModel)]="frmEdit['state']">
+				<input type="hidden" name="suburb" [(ngModel)]="frmEdit['suburb']">
+				<input type="hidden" name="country" [(ngModel)]="frmEdit['country']">
+				<input type="hidden" name="mobile" [(ngModel)]="frmEdit['mobile']">
+				<input type="hidden" name="zip" [(ngModel)]="frmEdit['zip']">
+				<input type="hidden" name="city" [(ngModel)]="frmEdit['city']">
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-sm-5">
+							<app-input-group type="text" name="address" placeholder="Address" [data]="frmEdit" required="true"></app-input-group>
+							<iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" [attr.src]="'https://maps.google.com/maps?q=' + frmEdit['address'] + '&t=&z=13&ie=UTF8&iwloc=&output=embed' | safe:'resourceUrl'"></iframe>
+						</div>
+						<div class="col-sm-7">
+							<div class="d-flex justify-content-between">
+								<app-input-group type="text" name="state" placeholder="state" [data]="frmEdit" required="true"></app-input-group>
+								<app-input-group type="text" name="suburb" placeholder="suburb" [data]="frmEdit" required="true"></app-input-group>
+							</div>
+							<app-input-group type="text" name="country" placeholder="country" [data]="frmEdit" required="true"></app-input-group>
+							<app-input-group type="text" name="zip" placeholder="zip" [data]="frmEdit" required="true"></app-input-group>
+							<app-input-group type="text" name="mobile" placeholder="mobile" [data]="frmEdit" required="true"></app-input-group>
+							<app-input-group type="text" name="city" placeholder="city" [data]="frmEdit" required="true"></app-input-group>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer d-flex justify-content-between">
+					<div class="my-auto">
+						<small><em>Function update</em></small>
+					</div>
+					<div class="btn-group">
+						<button type="button" class="btn btn-dark" [disabled]="frmEdit.form.invalid" (click)="doSave(frmEdit.value); frmEdit.reset()"><i class="fa fa-save"></i></button>
+						<button type="button" class="btn btn-outline-dark" data-dismiss="modal" (click)="frmEdit.reset()"><i class="fa fa-times"></i></button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<app-footer></app-footer>

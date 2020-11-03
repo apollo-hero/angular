@@ -1,0 +1,56 @@
+<app-header></app-header>
+
+<div class="card" id="about">
+	<div class="container">
+		<div class="row">
+            <div class="col-md-2">
+                <div class="hen-box">
+                    <img src="/assets/img/hen.png">
+                </div>
+			</div>
+			<div class="col-md-8 top">
+				<div class="about-content">
+					<div class="login-form">
+						<h2 style="text-align:center">SIGN IN</h2>
+						<hr class="bottom-line">
+						<form #frmSignin="ngForm" class="signin-htm" autocomplete="off">
+							<div class="row">
+								<div class="col-md-3 offset-md-1">
+									<label class="control-label label-middle">User name:</label>
+								</div>
+								<div class="col-md-6">
+									<app-input-group type="text" class="form-conrtol" name="username" placeholder="username" [data]="frmSignin.value"></app-input-group>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-3 offset-md-1">
+									<label class="control-label label-middle">Password:</label>
+								</div>
+								<div class="col-md-6">
+									<app-input-group type="password" name="password" placeholder="Password" [data]="frmSignin.value"></app-input-group>
+								</div>
+							</div>
+							<div class="row text-right pbtm">
+								<div class="col-md-9 offset-md-1">
+									<button type="button" class="btn btn-primary submit-btn btn-block btn-lg text-uppercase box-shadow" [disabled]="frmSignin.form.invalid" (click)="doSignin(frmSignin.value)">Sign in</button>
+								</div>
+							</div>
+							<div align="center">
+								<a href="" style="text-align: center; padding-top: 5px;">Forgot your password?</a>
+							</div>
+							<hr class="bottom-line">
+							<h2 style="text-align:center">NEW USER?</h2>
+
+							<div class="row text-right pbtm">
+								<div class="col-md-9 offset-md-1">
+									<a routerLink="/main/register"><button type="button" class="btn btn-danger submit-btn-danger btn-block btn-lg text-uppercase box-shadow" [disabled]="frmSignin.form.invalid">Sign Up</button></a>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<app-footer></app-footer>

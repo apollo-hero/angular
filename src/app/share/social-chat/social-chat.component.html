@@ -1,0 +1,6 @@
+<div *ngIf="!uid" class="bg-danger text-white text-center p-3">
+	<p class="m-0">Contact ID is missing</p>
+</div>
+<div *ngIf="uid" [class]="'embed-responsive embed-responsive-' + ratio">
+	<iframe class="embed-responsive-item" [src]="link | safe:'resourceUrl'"></iframe>
+</div>

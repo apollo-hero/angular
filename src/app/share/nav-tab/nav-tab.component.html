@@ -1,0 +1,15 @@
+<div [class]="'w-50 mx-auto ' + classNav">
+	<ul class="nav nav-justified line-nav">
+		<li class="nav-item position-relative" style="z-index: 1" *ngFor="let step of steps">
+			<button type="button" *ngIf="!routers" class="btn btn-outline-dark p-0" data-toggle="pill" [attr.data-target]="'#tab'+step" (click)="active=step"><span class="btn btn-sm" [ngClass]="{'btn-dark':active==step,'btn-light':active!=step}">{{step+1}}</span></button>
+			<button type="button" *ngIf="routers" class="btn btn-outline-dark p-0" data-toggle="pill" [attr.data-target]="'#tab'+step" [routerLink]="routers ? routers[step] : ''" (click)="active=step"><span class="btn btn-sm" [ngClass]="{'btn-dark':active==step,'btn-light':active!=step}">{{step+1}}</span></button>
+		</li>
+	</ul>
+</div>
+<div *ngIf="labels" [class]="'w-50 mx-auto ' + classNav">
+	<ul class="nav nav-justified">
+		<li class="nav-item" *ngFor="let label of labels">
+			<p class="small m-0 text-capitalize">{{label}}</p>
+		</li>
+	</ul>
+</div>

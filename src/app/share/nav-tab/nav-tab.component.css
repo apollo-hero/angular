@@ -1,0 +1,8 @@
+.nav.line-nav .nav-item:not(:last-child):after {
+	content: ' ';
+	background-color: #343a40;
+	height: 2px;
+	top: 50%;
+	width: 100%;
+	position: absolute;
+}

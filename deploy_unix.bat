@@ -1,0 +1,1 @@
+npm run build:ssr && rm -R functions/dist && cp -R dist functions/ && npm run build && firebase deploy

@@ -1,0 +1,23 @@
+footer{
+    padding: 60px 0 30px 0;
+    background: #fff;
+}
+*, *::after, *::before {
+    box-sizing: border-box;
+}
+.lead{
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400;
+    margin: 0 0 20px 0;
+    padding: 0;
+}
+li {
+    list-style: none !important;
+}
+/* a {
+    color: #5D5D5D;
+    transition: 0.5s;
+    text-decoration: none;
+    background-color: transparent;
+    padding-left: 2px;
+} */

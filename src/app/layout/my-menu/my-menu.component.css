@@ -1,0 +1,31 @@
+.tab {
+    overflow: hidden;
+    border-bottom: 2px solid #D0D0D0;
+}
+.mt-4, .my-4 {
+    margin-top: 1.5rem!important;
+}
+.tab div.active {
+    border: 1px solid #D0D0D0;
+}
+.tab div {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+    color: #5E5E5E;
+    font-weight: 700;
+}
+.tab div:hover {
+    background-color: #ddd;
+}
+.pbtm {
+    padding-bottom: 20px;
+}
+.text-right {
+    text-align: right!important;
+}

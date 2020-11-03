@@ -1,0 +1,50 @@
+<div id="app-cover">
+	<div id="player">
+		<div id="player-track">
+			<div id="album-name" class="text-truncate"></div>
+			<div id="track-name"></div>
+			<div id="track-time">
+				<div id="current-time"></div>
+				<div id="track-length"></div>
+			</div>
+			<div id="s-area">
+				<div id="ins-time"></div>
+				<div id="s-hover"></div>
+				<div id="seek-bar"></div>
+			</div>
+		</div>
+		<div id="player-content">
+			<div id="album-art">
+				<app-img *ngIf="tracks[currIndex]" [src]="tracks[currIndex].photo" imgClass="active" [id]="tracks[currIndex].id"></app-img>
+				<div id="buffer-box">Buffering ...</div>
+			</div>
+			<div id="player-controls" class="row">
+				<div class="col-8 my-auto">
+					<div class="d-flex justify-content-around text-center">
+						<div class="control my-auto">
+							<div class="btn btn-outline-dark border-0 rounded-circle" id="play-previous">
+								<i class="fa fa-backward"></i>
+							</div>
+						</div>
+						<div class="control my-auto">
+							<div class="btn btn-outline-dark btn-lg rounded-circle" id="play-pause-button">
+								<i class="fa fa-play"></i>
+							</div>
+						</div>
+						<div class="control my-auto">
+							<div class="btn btn-outline-dark border-0 rounded-circle" id="play-next">
+								<i class="fa fa-forward"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-4 my-auto">
+					<span class="fa-stack fa-lg">
+						<i class="fa fa-circle-thin fa-stack-2x"></i>
+						<i class="fa fa-stack-1x">{{tracks.length}}</i>
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

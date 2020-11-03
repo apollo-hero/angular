@@ -1,0 +1,357 @@
+<app-header></app-header>
+<section class="bg-color" id="trap">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div align="right">
+                    <div class="trapezoid ">
+                        <div class="outer-box">
+                            <a class="p-profile">Finalise</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="container-fluid bg-light p-5">
+	<ul class="nav nav-pills nav-fill mb-3">
+		<li class="nav-item">
+			<button type="button" class="btn btn-link border-0" data-toggle="pill" data-target="#pills-1">
+				<h5><b>PARCEL DETAILS</b></h5>
+				<!-- <p class="small m-0">(Click to edit)</p> -->
+			</button>
+		</li>
+		<li class="nav-item">
+			<button type="button" class="btn btn-link border-0" data-toggle="pill" data-target="#pills-2" (click)="loadCourier()"><h5><b>SELECT COURIER</b></h5></button>
+		</li>
+		<li class="nav-item">
+			<button type="button" *ngIf="member" class="btn btn-link border-0" data-toggle="pill" data-target="#pills-3" (click)="appServices.assignFrm(frmFinal, order); appServices.assignFrm(frmFinal, {contact_from:member.name,email_from:member.email,phone_from:member.phone,addressFrom:member.address});">
+				<h5 *ngIf="order && order.courierId"><b>FINALISE AND SEND</b></h5>
+			</button>
+			<button type="button" *ngIf="!member" class="btn btn-link border-0" data-toggle="pill" data-target="#pills-3" (click)="appServices.assignFrm(frmFinal, order)">
+				<h5 *ngIf="order && order.courierId"><b>FINALISE AND SEND</b></h5>
+			</button>
+		</li>
+	</ul>
+	<div class="row mb-5">
+		<div class="col-sm-4 border-right" *ngIf="parcels && parcels.length > 0">
+			<h5 style="color: #7d7e80;"><b>PARCEL DETAILS</b></h5>
+			<div class="d-flex justify-content-between">
+				<small>Weight:</small>
+				<small>{{appServices.sum(parcels, 'weight')}} ({{parcels[0].unit_weight}})</small>
+			</div>
+			<div class="d-flex justify-content-between">
+				<small>Dimension:</small>
+				<small>{{appServices.sum(parcels, 'length')}} x {{appServices.sum(parcels, 'width')}} x {{appServices.sum(parcels, 'height')}} ({{parcels[0].unit_dimension}})</small>
+			</div>
+			<div class="d-flex justify-content-between">
+				<small>Quantity:</small>
+				<small>{{appServices.sum(parcels, 'qty')}} pcs</small>
+			</div>
+		</div>
+		<div class="col-sm-4 border-right" *ngIf="order">
+			<h5 style="color: #7d7e80;"><b>QUOTE DETAILS</b></h5>
+			<div class="d-flex justify-content-between">
+				<small>Pickup:</small>
+				<small>Date/Time</small>
+			</div>
+			<div class="d-flex justify-content-between">
+				<small>Insurance Value:</small>
+				<small>{{order.insurance | currency:order.currency}}</small>
+			</div>
+			<div class="d-flex justify-content-between">
+				<small>Est Delivery Time:</small>
+				<small>{{order.delivery_time}} {{order.delivery_unit}}</small>
+			</div>
+			<div class="d-flex justify-content-between">
+				<small>Price:</small>
+				<small>{{order.price | currency:order.currency}}</small>
+			</div>
+		</div>
+		<div class="col-sm-4" *ngIf="order">
+			<h5 style="color: #7d7e80;"><b>DELIVERY DETAILS</b></h5>
+			<div class="d-flex justify-content-between" *ngIf="order.original">
+				<small>Original:</small>
+				<small>{{order.original.address}}</small>
+			</div>
+			<div class="d-flex justify-content-between" *ngIf="order.destination">
+				<small>Destination:</small>
+				<small>{{order.destination.address}}</small>
+			</div>
+			<div class="d-flex justify-content-between">
+				<small>Pickup Type:</small>
+				<small>{{order.pickup_type}}</small>
+			</div>
+			<div class="d-flex justify-content-between">
+				<small>Dropoff Type:</small>
+				<small>{{order.drop_type}}</small>
+			</div>
+		</div>
+	</div>
+	<div class="tab-content box-shadow">
+		<div class="tab-pane fade" id="pills-1">
+			<div class="card-columns p-3">
+				<div class="card card-body border-0 box-shadow" *ngFor="let data of parcels">
+					<div class="float-right" *ngIf="member">
+						<button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#modalParcel" (click)="appServices.assignFrm(frmParcel, data)"><i class="fa fa-edit"></i></button>
+					</div>
+					<p>{{data.qty}} x <strong>{{data.type}}</strong></p>
+					<p class="m-0"><small>Weight:</small> {{data.weight}} ({{data.unit_weight}})</p>
+					<p class="m-0"><small>Dimension:</small> {{data.length}} x {{data.width}} x {{data.height}}</p>
+				</div>
+				<div class="card bg-success text-center text-white p-3" *ngIf="member" data-toggle="modal" data-target="#modalParcel">
+					<i class="fa fa-plus"></i> Add more
+				</div>
+			</div>
+		</div>
+		<div class="tab-pane fade show active" id="pills-2">
+			<div class="row mb-3">
+				<div class="col-sm-4">
+					<select class="form-control form-control-lg" (change)="loadCourier({order:[$event.target.value]})">
+						<option>Filter results by</option>
+						<option value="commission">Price</option>
+						<option value="delivery_time">Delivery time</option>
+					</select>
+				</div>
+				<div class="col-sm-8 my-auto">
+					<app-switch *ngIf="order" name="dangerous" [data]="order" display="Items contains dangerous goods"></app-switch>
+				</div>
+			</div>
+			<div class="table-responsive px-3 bg-white">
+				<table class="table table-striped text-center m-0">
+					<thead>
+						<tr>
+							<th>COURIER</th>
+							<th>LIVE TRACKING</th>
+							<th>DELIVERY TIME</th>
+							<th>PICKUP / DROPOFF</th>
+							<th>PHOTO CONFIRMATION</th>
+							<th>INSURANCE VALUE</th>
+							<th>PRICE</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let data of couriers">
+							<td>
+								<div *ngIf="data.company" class="border p-2 {{data.company.name}}"><strong *ngIf="data.company">{{data.company.name}}</strong></div>
+							</td>
+							<td>
+								<i *ngIf="data.tracking" class="fa fa-2x fa-check-circle-o text-success"></i>
+								<i *ngIf="!data.tracking" class="fa fa-2x fa-times-circle-o text-danger"></i>
+							</td>
+							<td>{{data.delivery_time}}</td>
+							<td>00/00 00:00pm</td>
+							<td>
+								<i *ngIf="data.photo_confirm" class="fa fa-2x fa-check-circle-o text-success"></i>
+								<i *ngIf="!data.photo_confirm" class="fa fa-2x fa-times-circle-o text-danger"></i>
+							</td>
+							<td style="min-width: 200px">
+								<!-- <div *ngIf="data['addInsurance']">
+									<select class="form-control" name="insurance" [(ngModel)]="data['insurance']">
+										<option value="0">-- Add Insurance --</option>
+										<option value="200">{{'200' | currency:data.currency}}</option>
+										<option value="500">{{'500' | currency:data.currency}}</option>
+										<option value="750">{{'750' | currency:data.currency}}</option>
+										<option value="1000">{{'1000' | currency:data.currency}}</option>
+										<option value="1500">{{'1500' | currency:data.currency}}</option>
+									</select>
+								</div>
+								<div *ngIf="!data.insurance && !data['addInsurance']">
+									<button type="button" class="btn btn-link" (click)="data['addInsurance']=true">Add Insurance</button>
+								</div>
+								<div *ngIf="data.insurance && !data['addInsurance']">
+									<p class="m-0">{{data.insurance | currency:data.currency}}</p>
+									<button type="button" class="btn btn-link" (click)="data['addInsurance']=true">Add more insurance</button>
+								</div> -->
+								<div *ngIf="data.insurance">
+									<p class="m-0">{{data.insurance | currency:data.currency}}</p>
+									<button type="button" class="btn btn-link" (click)="data['addInsurance']=true">Add more insurance</button>
+									<div *ngIf="data['addInsurance']">
+										<select class="form-control" name="addInsurance" [(ngModel)]="data['addInsurance']">
+											<option value="0">-- Add Insurance --</option>
+											<option value="200">{{'200' | currency:data.currency}}</option>
+											<option value="500">{{'500' | currency:data.currency}}</option>
+											<option value="750">{{'750' | currency:data.currency}}</option>
+											<option value="1000">{{'1000' | currency:data.currency}}</option>
+											<option value="1500">{{'1500' | currency:data.currency}}</option>
+										</select>
+									</div>
+								</div>
+							</td>
+							<td>{{data.price | currency:data.currency}}</td>
+							<td>
+								<button type="button" *ngIf="member" class="btn btn-primary" style="border-radius: 3px;" (click)="chooseCourier(data); appServices.assignFrm(frmFinal, order); appServices.assignFrm(frmFinal, {contact_from:member.name,email_from:member.email,phone_from:member.phone,addressFrom:member.address}); appServices.tab('pills-3')" [disabled]="!data.available">Book</button>
+								<button type="button" *ngIf="!member" class="btn btn-primary" style="border-radius: 3px;" (click)="chooseCourier(data); appServices.assignFrm(frmFinal, order); appServices.tab('pills-3')" [disabled]="!data.available">Book</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="tab-pane fade" id="pills-3">
+			<div class="card card-body border-0 box-shadow">
+				<form #frmFinal="ngForm" autocomplete="off">
+					<input type="hidden" name="code" [(ngModel)]="frmFinal['code']">
+					<input type="hidden" name="name" [(ngModel)]="frmFinal['name']">
+					<input type="hidden" name="contact_from" [(ngModel)]="frmFinal['contact_from']" required="true">
+					<input type="hidden" name="phone_from" [(ngModel)]="frmFinal['phone_from']">
+					<input type="hidden" name="email_from" [(ngModel)]="frmFinal['email_from']" required="true">
+					<input type="hidden" name="company_from" [(ngModel)]="frmFinal['company_from']">
+					<input type="hidden" name="countryIdFrom" [(ngModel)]="frmFinal['countryIdFrom']">
+					<input type="hidden" name="addressFrom" [(ngModel)]="frmFinal['addressFrom']" required="true">
+					<input type="hidden" name="countryFrom" [(ngModel)]="frmFinal['countryFrom']">
+					<input type="hidden" name="suburbFrom" [(ngModel)]="frmFinal['suburbFrom']">
+					<input type="hidden" name="postalFrom" [(ngModel)]="frmFinal['postalFrom']">
+					<input type="hidden" name="collect_date" [(ngModel)]="frmFinal['collect_date']">
+					<input type="hidden" name="pick_door" [(ngModel)]="frmFinal['pick_door']">
+					<input type="hidden" name="note_from" [(ngModel)]="frmFinal['note_from']">
+					<input type="hidden" name="contact_to" [(ngModel)]="frmFinal['contact_to']" required="true">
+					<input type="hidden" name="phone_to" [(ngModel)]="frmFinal['phone_to']">
+					<input type="hidden" name="email_to" [(ngModel)]="frmFinal['email_to']" required="true">
+					<input type="hidden" name="company_to" [(ngModel)]="frmFinal['company_to']">
+					<input type="hidden" name="countryIdTo" [(ngModel)]="frmFinal['countryIdTo']">
+					<input type="hidden" name="countryTo" [(ngModel)]="frmFinal['countryTo']">
+					<input type="hidden" name="addressTo" [(ngModel)]="frmFinal['addressTo']" required="true">
+					<input type="hidden" name="suburbTo" [(ngModel)]="frmFinal['suburbTo']">
+					<input type="hidden" name="postalTo" [(ngModel)]="frmFinal['postalTo']">
+					<input type="hidden" name="authority_leave" [(ngModel)]="frmFinal['authority_leave']">
+					<input type="hidden" name="note_to" [(ngModel)]="frmFinal['note_to']">
+					<app-input-group type="text" name="name" placeholder="Provide a brief description of items being sent" [data]="frmFinal"></app-input-group>
+					<app-input-group type="text" name="code" placeholder="Customer Referance / Order Number" [data]="frmFinal"></app-input-group>
+					<hr/>
+					<div class="row">
+						<div class="col-sm-6">
+							<h4 class="text-primary"><b>COLLECT FROM</b></h4>
+							<app-input-group type="text" name="contact_from" placeholder="Contact Name" [data]="frmFinal" required="true"></app-input-group>
+							<app-input-group type="text" name="phone_from" placeholder="Contact Phone" [data]="frmFinal" required="true"></app-input-group>
+							<app-input-group type="text" name="email_from" placeholder="Email" [data]="frmFinal" required="true"></app-input-group>
+							<app-input-group type="text" name="company_from" placeholder="Company Name" [data]="frmFinal" required="true"></app-input-group>
+							<app-input-group type="text" placeholder="Street Address" classInput="dropdown-toggle" name="addressFrom" [data]="frmFinal" (click)="loadAddressBookFrom()" (enter)="loadAddressBookFrom({'address':{'ilike':$event.target.value}})" required="true"></app-input-group>
+							<app-autocomplete [arr]="addressBookFrom" display="address" (choose)="appServices.assignFrm(frmFinal, {'addressFrom': $event.address})"></app-autocomplete>
+							<app-input-group type="text" classInput="dropdown-toggle" placeholder="Country" name="countryFrom" [data]="frmFinal" (click)="loadCountryFrom()" (keyup)="loadCountryFrom({'name':{'ilike':$event.target.value}})"></app-input-group>
+							<app-autocomplete [arr]="countryFrom" display="name" (choose)="appServices.assignFrm(frmFinal, {'countryFrom': $event.name, 'countryIdFrom': $event.id})"></app-autocomplete>
+							<app-input-group type="text" classInput="dropdown-toggle" placeholder="Suburb" name="suburbFrom" [data]="frmFinal" (click)="loadSuburbFrom({'countryId': frmFinal['countryIdFrom']})" (enter)="loadSuburbFrom({'name':{'ilike':$event.target.value}, 'countryId': frmFinal['countryIdFrom']})"></app-input-group>
+							<app-autocomplete [arr]="suburbsFrom" display="name" (choose)="appServices.assignFrm(frmFinal, {'suburbFrom': $event.name})"></app-autocomplete>
+							<app-input-group type="text" classInput="dropdown-toggle" placeholder="Postcode" name="postalFrom" [data]="frmFinal" (click)="loadPostalFrom({'countryId': frmFinal['countryIdFrom']})" (enter)="loadPostalFrom({'code':{'ilike':$event.target.value}, 'countryId': frmFinal['countryIdFrom']})"></app-input-group>
+							<app-autocomplete [arr]="postalsFrom" display="code" subtitle="country" (choose)="appServices.assignFrm(frmFinal, {'postalFrom': $event.code})"></app-autocomplete>
+							<app-input-group type="date" name="collect_date" placeholder="Preferred collection date" [data]="frmFinal"></app-input-group>
+							<app-switch name="pick_door" [data]="frmFinal" display="Pickup from door if unattended"></app-switch>
+							<app-input-group type="text" name="note_from" placeholder="Other (Please specify)" [data]="frmFinal"></app-input-group>
+						</div>
+						<div class="col-sm-6">
+							<h4 class="text-primary"><b>DELIVER TO</b></h4>
+							<app-input-group type="text" name="contact_to" placeholder="Contact Name" [data]="frmFinal" required="true"></app-input-group>
+							<app-input-group type="text" name="phone_to" placeholder="Contact Phone" [data]="frmFinal" required="true"></app-input-group>
+							<app-input-group type="text" name="email_to" placeholder="Email" [data]="frmFinal" required="true"></app-input-group>
+							<app-input-group type="text" name="company_to" placeholder="Company Name" [data]="frmFinal" required="true"></app-input-group>
+							<app-input-group type="text" placeholder="Street Address" classInput="dropdown-toggle" name="addressTo" [data]="frmFinal" (click)="loadAddressBookTo()" (enter)="loadAddressBookTo({'address':{'ilike':$event.target.value}})" required="true"></app-input-group>
+							<app-autocomplete [arr]="addressBookTo" display="address" (choose)="appServices.assignFrm(frmFinal, {'addressTo': $event.address})"></app-autocomplete>
+							<app-input-group type="text" classInput="dropdown-toggle" placeholder="Country" name="countryTo" [data]="frmFinal" (click)="loadCountryTo()" (keyup)="loadCountryTo({'name':{'ilike':$event.target.value}})"></app-input-group>
+							<app-autocomplete [arr]="countryTo" display="name" (choose)="appServices.assignFrm(frmFinal, {'countryTo': $event.name, 'countryIdTo': $event.id})"></app-autocomplete>
+							<app-input-group type="text" classInput="dropdown-toggle" placeholder="Suburb" name="suburbTo" [data]="frmFinal" (click)="loadSuburbTo({'countryId': frmFinal['countryIdTo']})" (enter)="loadSuburbTo({'name':{'ilike':$event.target.value}, 'countryId': frmFinal['countryIdTo']})"></app-input-group>
+							<app-autocomplete [arr]="suburbsTo" display="name" (choose)="appServices.assignFrm(frmFinal, {'suburbTo': $event.name})"></app-autocomplete>
+							<app-input-group type="text" classInput="dropdown-toggle" placeholder="Postcode" name="postalTo" [data]="frmFinal" (click)="loadPostalTo({'countryId': frmFinal['countryIdTo']})" (enter)="loadPostalTo({'code':{'ilike':$event.target.value}, 'countryId': frmFinal['countryIdTo']})"></app-input-group>
+							<app-autocomplete [arr]="postalsTo" display="code" subtitle="country" (choose)="appServices.assignFrm(frmFinal, {'postalTo': $event.code})"></app-autocomplete>
+							<p><strong>DELIVERY INSTRUCTIONS</strong></p>
+							<select class="form-control mb-3" name="authority_leave" [(ngModel)]="frmFinal['authority_leave']">
+								<option>-- Authority to leave at --</option>
+								<option value="front door">Front Door</option>
+								<option value="back door">Back Door</option>
+							</select>
+							<app-input-group type="text" name="note_to" placeholder="Other (Please specify)" [data]="frmFinal"></app-input-group>
+						</div>
+					</div>
+					<hr/>
+					<div class="custom-control custom-checkbox">
+						<input type="checkbox" class="custom-control-input" id="chk1" name="term1" [(ngModel)]="frmFinal['term1']" required>
+						<label class="custom-control-label" for="chk1">I have read, understood and agree to the MyFreightCompany terms, conditions supplier name supplier terms, conditions</label>
+					</div>
+					<div class="custom-control custom-checkbox">
+						<input type="checkbox" class="custom-control-input" id="chk2" name="term2" [(ngModel)]="frmFinal['term2']" required>
+						<label class="custom-control-label" for="chk2">I understand that the consignment note supplied via email after booking must be attached to the parcel as instructed</label>
+					</div>
+					<hr/>
+					<div class="row text-right pbtm pt-5">
+						<div class="col-md-9 offset-md-1">
+							<button type="button" class="btn btn-primary btn-lg btn-block submit-btn" style="border-radius: 5px;" [disabled]="frmFinal.form.invalid" (click)="doFinal(frmFinal.value)">PROCESS ORDER</button>
+						</div>   
+						</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="bg-white mt-5 p-3">
+		<h4 class="discrap">
+			Delivery time is estimated and MyFreightCompany is not liable for delivery outside this time, delays may occer for rural areas
+		</h4>
+	</div>
+</div>
+
+
+
+
+<div id="modalParcel" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+	<div class="modal-dialog modal-dialog-centered modal-lg">
+		<div class="modal-content">
+			<form #frmParcel="ngForm" autocomplete="off">
+				<input type="hidden" name="id" [(ngModel)]="frmParcel['id']">
+				<input type="hidden" name="type" [(ngModel)]="frmParcel['type']">
+				<input type="hidden" name="weight" [(ngModel)]="frmParcel['weight']">
+				<input type="hidden" name="length" [(ngModel)]="frmParcel['length']">
+				<input type="hidden" name="width" [(ngModel)]="frmParcel['width']">
+				<input type="hidden" name="height" [(ngModel)]="frmParcel['height']">
+				<input type="hidden" name="qty" [(ngModel)]="frmParcel['qty']">
+				<div class="modal-header">
+					<div class="icon-box bg-warning text-white"> <i class="fa fa-exclamation fa-3x"></i> </div>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-sm-6">
+							<select class="form-control form-control-lg" name="type" [(ngModel)]="frmParcel['type']">
+								<option value="envelope">envelope</option>
+								<option value="satchel">satchel</option>
+								<option value="box">box</option>
+								<option value="pallet">pallet</option>
+								<option value="wine/beer/liquor">wine/beer/liquor</option>
+								<option value="flower">flower</option>
+								<option value="tube">tube</option>
+								<option value="crate">crate</option>
+								<option value="carton contains liquid">carton contains liquid</option>
+								<option value="box contents fragile">box contents fragile</option>
+							</select>
+						</div>
+						<div class="col-sm-6">
+							<app-input-group type="text" name="qty" placeholder="Qty" [data]="frmParcel"></app-input-group>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-6 col-md-3">
+							<app-input-group type="text" name="weight" placeholder="Weight (g)" [data]="frmParcel"></app-input-group>
+						</div>
+						<div class="col-sm-6 col-md-3">
+							<app-input-group type="text" name="length" placeholder="Length (cm)" [data]="frmParcel"></app-input-group>
+						</div>
+						<div class="col-sm-6 col-md-3">
+							<app-input-group type="text" name="width" placeholder="Width (cm)" [data]="frmParcel"></app-input-group>
+						</div>
+						<div class="col-sm-6 col-md-3">
+							<app-input-group type="text" name="height" placeholder="Height (cm)" [data]="frmParcel"></app-input-group>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer d-flex justify-content-between">
+					<div class="my-auto">
+						<small><em>Function update</em></small>
+					</div>
+					<div class="btn-group">
+						<button type="button" class="btn btn-dark" [disabled]="frmParcel.form.invalid" (click)="saveParcel(frmParcel.value); frmParcel.reset()"><i class="fa fa-save"></i></button>
+						<button type="button" class="btn btn-outline-dark" data-dismiss="modal" (click)="frmParcel.reset()"><i class="fa fa-times"></i></button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<app-footer></app-footer>

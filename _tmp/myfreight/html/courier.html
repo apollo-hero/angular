@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/b-1.6.1/datatables.min.css"/>
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/040029dc0f.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/b-1.6.1/datatables.min.js"></script>
+
+	<script type="text/javascript" src="../assets/js/style.js"></script>
+
+	<title>Courier</title>
+
+</head>
+<body>
+<header>
+  	<div class="header-wrap container-fluid">
+	  	<div id="top-header">
+	  		<div class="justify-content-end">
+	  			<div class="row no-gutters">
+	  				<div class="col-lg-6">
+	  					 <div id="logo">
+	  						<img src="../assets/images/logo.png">
+	  					</div>
+	  				</div>
+
+	  				<div class="col-lg-3">
+	  					<div class="quote">
+	  						<img src="../assets/images/quotes.png">
+	  					</div>
+	  				</div>
+	  				<div class="col-lg-3">
+	  					<div class="head-btn-wrap d-flex">
+		  					<div>1900MyFreight</div>
+		  					<button class="btn btn-primary btn-lg login-button">
+			  					click here
+			  				</button>
+			  				<div>
+			  					<a href="#">Sign Up and save upto 30%</a>
+			  				</div>
+		  				</div>
+	  				</div>
+		  		 </div>
+	  		 </div>
+	  	</div>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light d-flex justify-content-between">
+			  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			    <span class="navbar-toggler-icon"></span>
+			  </button>
+			  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+			    <ul class="navbar-nav m-auto">
+				   	<li class="nav-item dropdown ">
+				        <a class="nav-link d-flex" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+				        	Quick Quote
+				        <i class="fas fa-caret-down"></i> 
+				   		</a>
+
+				   		<div class="dropdown-menu">
+						    <a class="dropdown-item" href="#">Link 1</a>
+						    <a class="dropdown-item" href="#">Link 2</a>
+						</div>
+				    </li>
+				    <li class="nav-item dropdown ">
+				        <a class="nav-link d-flex" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+				        	Tracking
+				        <i class="fas fa-caret-down"></i> 
+				   		</a>
+
+				   		<div class="dropdown-menu">
+						    <a class="dropdown-item" href="#">Link 1</a>
+						    <a class="dropdown-item" href="#">Link 2</a>
+						</div>
+				    </li>
+				    <li class="nav-item dropdown ">
+				        <a class="nav-link d-flex" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+				        	About us
+				        <i class="fas fa-caret-down"></i> 
+				   		</a>
+
+				   		<div class="dropdown-menu">
+						    <a class="dropdown-item" href="#">Link 1</a>
+						    <a class="dropdown-item" href="#">Link 2</a>
+						</div>
+				    </li>
+				    <li class="nav-item dropdown ">
+				        <a class="nav-link d-flex" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+				        	Contact us
+				        <i class="fas fa-caret-down"></i> 
+				   		</a>
+
+				   		<div class="dropdown-menu">
+						    <a class="dropdown-item" href="#">Link 1</a>
+						    <a class="dropdown-item" href="#">Link 2</a>
+						</div>
+				    </li>
+				    <li class="nav-item dropdown ">
+				        <a class="nav-link d-flex" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+				        	Customer Support
+				        <i class="fas fa-caret-down"></i> 
+				   		</a>
+
+				   		<div class="dropdown-menu">
+						    <a class="dropdown-item" href="#">Link 1</a>
+						    <a class="dropdown-item" href="#">Link 2</a>
+						</div>
+				    </li>
+			    </ul>
+			  </div>
+		</nav>
+	</div>
+</header>
+<main >
+	<section class="widget-area mt-3">
+		<div class="container">
+			<div class="widget-wrap">
+				<div class="row mb-3">
+					<div class="col-md-4 col-sm-4 text-center">
+						<a href="#">
+							PARCEL DETAILS
+						</a>
+						<br>
+						<span>
+							(Click to edit)
+						</span>
+					</div>
+					<div class="col-md-4 col-sm-4 text-center">
+						<a href="#">
+							SELECT COURIER
+						</a>
+					</div>
+					<div class="col-md-4 col-sm-4 text-center">
+						<a href="#">
+							FINALISE AND SEND
+						</a>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-4 col-md-4">
+						<h4 class="text-center">PARCEL DETAILS</h4>
+						<ul class="list-unstyled">
+							<li>
+								Package type:
+							</li>
+							<li>
+								Weight:
+							</li>
+							<li>
+								Dimensions:
+							</li>
+							<li>
+								Quantity:
+							</li>
+						</ul>
+					</div>
+					<div class="col-sm-4 col-md-4 border-left border-right">
+						<h4 class="text-center">QUOTE DETAILS</h4>
+						<div class="row">
+							<div class="col-md-6 col-sm-6">
+								<ul class="list-unstyled">
+									<li>
+										Pick up:
+									</li>
+									<li>
+										Insuarance Value:
+									</li>
+									<li>
+										Est. Delivery Time:
+									</li>
+									<li>
+										Price:
+									</li>
+								</ul>
+							</div>
+							<div class="col-md-6 col-sm-6 text-right">
+								<ul class="list-unstyled">
+									<li>
+										Date/time
+									</li>
+									<li>
+										$1000
+									</li>
+									<li>
+										2 Working Days
+									</li>
+									<li>
+										$10.50
+									</li>
+								</ul>							
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-4 col-md-4">
+						<h4 class="text-center">DELIVERY DETAILS</h4>
+						<div class="row">
+							<div class="col-md-6 col-sm-6">
+								<span>
+									FROM
+								</span>
+							</div>
+							<div class="col-md-6 col-sm-6 text-right">
+								<span>MELBOURN</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="courier-area">
+		<div class="container">
+  			<div class="row">
+  				<div class="col-md-12 col-sm-12">
+  					<div class="courier-data-wrap mt-5 mb-5 p-5 border bg-light">
+  						<div class="table-head">
+  							<div class="row no-gutters">
+  								<div class="col-md-3 col-sm-3">
+		  							<div class="input-group text-middle">
+									  <select class="custom-select" id="inputGroupSelect04">
+									    <option selected>Filter By</option>
+									    <option value="1">Price</option>
+									    <option value="2">Status</option>
+									    <option value="3">Time</option>
+									  </select>
+									</div>  								
+  								</div>
+  								<div class="col-sm-9 col-md-9">
+									<div class="form-check form-check-inline ml-1">
+									  <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+									  <label class="form-check-label" for="inlineCheckbox1">*Items contain dangerous goods</label>
+									</div> 									
+  								</div>
+  							</div>
+  						</div>
+						<div class="table-wrap mt-5">
+							<table class="table" id="myTable">
+								<thead>
+									<th class="company-col text-center">COURIER</th>
+									<th class="status-col text-center">LIVE TRACKING</th>
+									<th class="time-col text-center">DELIVERY TIME</th>
+									<th class="pickup-col text-center">PICKUP /DROPOFF</th>
+									<th class="photo-col text-center">PHOTO CONFIRMATION</th>
+									<th class="ins-co text-center">INSUARANCE VALUE</th>
+									<th class="price-col text-center">PRICE</th>
+									<th></th>
+								</thead>
+								<tbody>
+									<tr>
+										<td class="company box text-center">
+											<button class="button btn-primary btn-block">
+												TNT
+											</button>
+										</td>
+										<td class="date text-center">
+											<span>Yes</span>
+										</td>
+										<td class="time text-center">
+											<span>
+												2 Business Days
+											</span>	
+										</td>
+										<td class="pickup text-center">
+											<span>
+										          00/00 00:00pm
+											</span>
+										</td>
+										<td class="photo text-center">
+											<span>
+										          No
+											</span>
+										</td>
+										<td class="insuarance ">
+											<a href="#">Add Insuarance</a>
+										</td>
+										<td class="price">
+											<span>
+										          $00.00
+											</span>
+										</td>
+										<td class="level-box">
+											<button class="btn-primary text-white booking-btn">Book</button>
+										</td>
+									</tr>
+																		<tr>
+										<td class="company box text-center">
+											<button class="button btn-primary btn-block">
+												TNT
+											</button>
+										</td>
+										<td class="date text-center">
+											<span>Yes</span>
+										</td>
+										<td class="time text-center">
+											<span>
+												2 Business Days
+											</span>	
+										</td>
+										<td class="pickup text-center">
+											<span>
+										          00/00 00:00pm
+											</span>
+										</td>
+										<td class="photo text-center">
+											<span>
+										          No
+											</span>
+										</td>
+										<td class="insuarance ">
+											<a href="#">Add Insuarance</a>
+										</td>
+										<td class="price">
+											<span>
+										          $00.00
+											</span>
+										</td>
+										<td class="level-box">
+											<button class="btn-primary text-white booking-btn">Book</button>
+										</td>
+									</tr>
+																		<tr>
+										<td class="company box text-center">
+											<button class="button btn-primary btn-block">
+												TNT
+											</button>
+										</td>
+										<td class="date text-center">
+											<span>Yes</span>
+										</td>
+										<td class="time text-center">
+											<span>
+												2 Business Days
+											</span>	
+										</td>
+										<td class="pickup text-center">
+											<span>
+										          00/00 00:00pm
+											</span>
+										</td>
+										<td class="photo text-center">
+											<span>
+										          No
+											</span>
+										</td>
+										<td class="insuarance ">
+											<a href="#">Add Insuarance</a>
+										</td>
+										<td class="price">
+											<span>
+										          $00.00
+											</span>
+										</td>
+										<td class="level-box">
+											<button class="btn-primary text-white booking-btn">Book</button>
+										</td>
+									</tr>
+																		<tr>
+										<td class="company box text-center">
+											<button class="button btn-primary btn-block">
+												TNT
+											</button>
+										</td>
+										<td class="date text-center">
+											<span>Yes</span>
+										</td>
+										<td class="time text-center">
+											<span>
+												2 Business Days
+											</span>	
+										</td>
+										<td class="pickup text-center">
+											<span>
+										          00/00 00:00pm
+											</span>
+										</td>
+										<td class="photo text-center">
+											<span>
+										          No
+											</span>
+										</td>
+										<td class="insuarance ">
+											<a href="#">Add Insuarance</a>
+										</td>
+										<td class="price">
+											<span>
+										          $00.00
+											</span>
+										</td>
+										<td class="level-box">
+											<button class="btn-primary text-white booking-btn">Book</button>
+										</td>
+									</tr>
+																		<tr>
+										<td class="company box text-center">
+											<button class="button btn-primary btn-block">
+												TNT
+											</button>
+										</td>
+										<td class="date text-center">
+											<span>Yes</span>
+										</td>
+										<td class="time text-center">
+											<span>
+												2 Business Days
+											</span>	
+										</td>
+										<td class="pickup text-center">
+											<span>
+										          00/00 00:00pm
+											</span>
+										</td>
+										<td class="photo text-center">
+											<span>
+										          No
+											</span>
+										</td>
+										<td class="insuarance ">
+											<a href="#">Add Insuarance</a>
+										</td>
+										<td class="price">
+											<span>
+										          $00.00
+											</span>
+										</td>
+										<td class="level-box">
+											<button class="btn-primary text-white booking-btn">Book</button>
+										</td>
+									</tr>								
+								</tbody>
+							</table>
+						</div>  						
+  					</div>
+  				</div>	
+			</div>
+		</div>
+	</section>
+	<div class="note-area">
+		<div class="container">
+  			<div class="row">
+  				<div class="col-md-12 col-sm-12">
+  					<div class="note-wrap mt-2 mb-5 p-3 border bg-light">
+  						<p>
+  							A Terms and Conditions is not required and it's not mandatory by law. Unlike Privacy Policies, which are required by laws such as the GDPR, CalOPPA and many others, there's no law or regulation on Terms and Conditions.
+  						</p>
+  					</div>
+  				</div>
+  			</div>
+  		</div>
+	</div>	
+</main>
+
+
+<footer class="bg-light">
+  	<div class="footer-wrap p-5">
+  		<div class="container-fluid">
+  			<div class="row">
+  				<div class="col-sm-3 col-md-3">
+  					<div class="row">
+  						<div class="col-sm-12 col-md-12">
+  							<a href="#">Terms & Conditions</a>
+  						</div>
+  					</div>
+  					<div class="row">
+  						<div class="col-sm-6 col-md-6">
+  							<a href="#">Google+</a>
+  						</div>
+  						<div class="col-sm-6 col-md-6">
+  							<a href="#">Linkedin</a>
+  						</div>
+  					</div>
+  				</div>
+  				<div class="col-sm-3 col-md-3">
+  					<div class="row">
+  						<div class="col-sm-6 col-md-6">
+  							<a href="#">Facebook</a>
+  						</div>
+  						<div class="col-sm-6 col-md-6">
+  							<a href="#">Twitter</a>
+  						</div>
+  					</div>
+  					<div class="row">
+  						<div class="col-sm-6 col-md-6">
+  							<a href="#">Youtube</a>
+  						</div>
+  						<div class="col-sm-6 col-md-6">
+  							<a href="#">Blogs</a>
+  						</div>
+  					</div>
+  				</div>
+  				<div class="col-sm-6 col-md-6">
+  					<div class="row">
+  						<div class="ml-auto col-sm-4 col-md-4">
+  							<ul>
+  								Help & Information
+  								<li>
+  									Contact number
+  								</li>
+  								<li>
+  									Contract form
+  								</li>
+  								<li>
+  									Common Questions
+  								</li>
+  								<li>
+  									Privacy Policy
+  								</li>
+  								<li>
+  									Latest News
+  								</li>
+  							</ul>
+  						</div>
+  					</div>
+  				</div>
+  			</div>
+  		</div>
+  	</div>
+</footer>
+</body>
+</html>

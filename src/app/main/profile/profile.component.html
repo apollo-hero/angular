@@ -1,0 +1,109 @@
+<app-header></app-header>
+<section class="bg-color" id="trap">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div align="right">
+                    <div class="trapezoid ">
+                        <div class="outer-box">
+                            <a class="p-profile">Dashboard-Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="container">
+	<div class="row mt-3">
+		<!-- <div class="d-none d-sm-block col-sm-3 mb-3">
+			<app-my-menu></app-my-menu>
+		</div> -->
+		<div class="d-block d-sm-none position-fixed" style="z-index: 1">
+			<button type="button" class="btn btn-dark box-shadow" data-toggle="collapse" data-target="#clsMenu"><i class="fa fa-bars"></i></button>
+			<div id="clsMenu" class="collapse bg-white">
+				<app-my-menu></app-my-menu>
+			</div>
+		</div>
+		<div class="col-sm-12">
+			<app-my-menu></app-my-menu>
+			<div class="card card-body bg-white" *ngIf="member">
+				<div class="p-5">
+					<h4 style="color: black;"><b>Hi {{member.firstName}} {{member.lastName}}!</b></h4>
+					<a class="small" data-toggle="modal" data-target="#modalPwd" (click)="appServices.assignFrm(frmPwd, member)">Reset password?</a>
+				</div>
+				<div class="row">
+					<div class="col-sm-6">
+						<h4><b>My Account Details</b></h4>
+						<app-input-group type="text" name="firstName" placeholder="First Name" [data]="member"></app-input-group>
+						<app-input-group type="text" name="lastName" placeholder="Last Name" [data]="member"></app-input-group>
+						<app-input-group type="text" name="username" placeholder="First Name" [data]="member"></app-input-group>
+						<app-input-group type="text" name="company" placeholder="Company Name" [data]="member"></app-input-group>
+						<app-input-group type="text" name="officePhone" placeholder="Contact Number" [data]="member"></app-input-group>
+						<app-input-group type="text" name="email" placeholder="Email" [data]="member"></app-input-group>
+						<app-input-group type="password" name="password" placeholder="password" [data]="member"></app-input-group>
+						<app-input-group type="text" name="cellPhone" placeholder="Phone" [data]="member"></app-input-group>
+						<app-input-group type="text" name="address" placeholder="Street Address 1*" [data]="member.address" required="true"></app-input-group>
+						<app-input-group type="text" name="city" placeholder="city" [data]="member.address"></app-input-group>
+						<app-input-group type="text" name="state" placeholder="state" [data]="member.address"></app-input-group>
+						<app-input-group type="text" name="suburb" placeholder="suburb" [data]="member.address"></app-input-group>
+						<app-input-group type="text" name="zip" placeholder="zip" [data]="member.address"></app-input-group>
+						<app-input-group type="text" name="country" placeholder="country" [data]="member.address"></app-input-group>
+						<app-input-group type="text" name="mobile" placeholder="mobile" [data]="member.address"></app-input-group>
+						<app-input-group type="text" name="type" placeholder="type" [data]="member.address"></app-input-group>
+
+						<!-- <app-input-group type="text" classInput="dropdown-toggle" placeholder="Suburb*" name="suburb" [data]="member" (click)="loadSuburb()" (input)="loadSuburb({'name':{'ilike':$event.target.value}})"></app-input-group> -->
+						<!-- <app-autocomplete [arr]="suburbs" display="name" (choose)="appServices.assignFrm(member, {'suburb': $event.name})"></app-autocomplete> -->
+						<!-- <app-input-group type="text" classInput="dropdown-toggle" placeholder="Postcode*" name="postal" [data]="member" (click)="loadPostal()" (input)="loadPostal({'code':{'ilike':$event.target.value}})"></app-input-group> -->
+						<!-- <app-autocomplete [arr]="postals" display="code" subtitle="country" (choose)="appServices.assignFrm(member, {'postal': $event.code})"></app-autocomplete> -->
+					</div>
+					<div class="col-sm-6">
+						<h4><b>Billing Address</b></h4>
+						<app-input-group type="text" name="bill_email" placeholder="Email*" [data]="member"></app-input-group>
+						<app-input-group type="text" name="bill_phone" placeholder="Phone" [data]="member"></app-input-group>
+						<app-input-group type="text" name="bill_address" placeholder="Street Address 1*" [data]="member"></app-input-group>
+						<app-input-group type="text" name="bill_address2" placeholder="Street Address 2(opt)" [data]="member"></app-input-group>
+						<app-input-group type="text" classInput="dropdown-toggle" placeholder="Suburb*" name="bill_suburb" [data]="member" (click)="loadSuburbBill()" (input)="loadSuburbBill({'name':{'ilike':$event.target.value}})"></app-input-group>
+						<app-autocomplete [arr]="bill_suburbs" display="name" (choose)="appServices.assignFrm(member, {'bill_suburb': $event.name})"></app-autocomplete>
+						<app-input-group type="text" classInput="dropdown-toggle" placeholder="Postcode*" name="bill_postal" [data]="member" (click)="loadPostalBill()" (input)="loadPostalBill({'code':{'ilike':$event.target.value}})"></app-input-group>
+						<app-autocomplete [arr]="bill_postals" display="code" subtitle="country" (choose)="appServices.assignFrm(member, {'bill_postal': $event.code})"></app-autocomplete>
+					</div>
+				</div>
+				<div class="row text-center" style="margin-top: 10px;">
+					<div class="col-md-9 offset-md-1">
+						<input type="submit" class="form-control submit-btn" id="submit" value="SAVE" name="submit" (click)="doSave(member)">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="modalPwd" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<form #frmPwd="ngForm" autocomplete="off">
+				<input type="hidden" name="id" [(ngModel)]="frmPwd['id']">
+				<input type="hidden" name="user" [(ngModel)]="frmPwd['user']">
+				<input type="hidden" name="pwd1" [(ngModel)]="frmPwd['pwd1']">
+				<input type="hidden" name="pwd2" [(ngModel)]="frmPwd['pwd2']">
+				<div class="modal-header">
+					<div class="icon-box bg-warning text-white"> <i class="fa fa-exclamation fa-3x"></i> </div>
+				</div>
+				<div class="modal-body">
+					<app-input-group type="password" name="pwd1" placeholder="Recent Password" [data]="frmPwd" required="true"></app-input-group>
+					<app-input-group type="password" name="pwd2" placeholder="New Password" [data]="frmPwd" required="true"></app-input-group>
+				</div>
+				<div class="modal-footer d-flex justify-content-between">
+					<div class="my-auto">
+						<small><em>Function security</em></small>
+					</div>
+					<div class="btn-group">
+						<button type="button" class="btn btn-dark" [disabled]="frmPwd.form.invalid" (click)="changePWD(frmPwd.value); frmPwd.reset()"><i class="fa fa-save"></i></button>
+						<button type="button" class="btn btn-outline-dark" data-dismiss="modal" (click)="frmPwd.reset()"><i class="fa fa-times"></i></button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<app-footer></app-footer>

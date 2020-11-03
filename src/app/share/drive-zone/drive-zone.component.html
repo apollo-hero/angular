@@ -1,0 +1,10 @@
+<ngx-dropzone (change)="onSelect($event)">
+	<ngx-dropzone-label>Drop it, baby!</ngx-dropzone-label>
+	<ngx-dropzone-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
+		<ngx-dropzone-label>{{f.name}} <span class="badge badge-secondary">{{f.type}}</span></ngx-dropzone-label>
+	</ngx-dropzone-preview>
+</ngx-dropzone>
+<button type="button" class="btn btn-dark btn-block" (click)="uploadDrive()" [disabled]="uploading">
+	<i *ngIf="!uploading" class="fa fa-hdd-o"></i>
+	<i *ngIf="uploading" class="fa fa-circle-o-notch fa-spin"></i>
+</button>

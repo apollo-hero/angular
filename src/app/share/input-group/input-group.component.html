@@ -1,0 +1,5 @@
+<div [class]="'form-label-group ' + classGroup">
+	<input *ngIf="data" [type]="type" [id]="id" class="form-control" [name]="name" [placeholder]="placeholder" [(ngModel)]="data[name]" [required]="required" (keyup.enter)="doEnter($event)" (change)="change($event)">
+	<input *ngIf="!data" [type]="type" [id]="id" class="form-control" [name]="name" [placeholder]="placeholder" [required]="required" (keyup.enter)="doEnter($event)" (change)="change($event)">
+	<label [for]="id" [class]="classInput">{{placeholder}}</label>
+</div>

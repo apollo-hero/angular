@@ -1,0 +1,272 @@
+{
+	"customer": {
+		"": "khách hàng",
+		"info": "thông tin khách hàng"
+	},
+	"doctor": {
+		"": "bác sĩ"
+	},
+	"name": {
+		"": "tên"
+	},
+	"phone": {
+		"": "di động"
+	},
+	"password": {
+		"": "mật khẩu"
+	},
+	"email": {
+		"or phone": "email hoặc điện thoại"
+	},
+	"check": {
+		"": "kiểm tra"
+	},
+	"access": {
+		"": "truy cập"
+	},
+	"booking": {
+		"": "lịch hẹn"
+	},
+	"fullname": {
+		"": "họ tên"
+	},
+	"birthday": {
+		"": "ngày sinh"
+	},
+	"mobile": {
+		"": "di động"
+	},
+	"gender": {
+		"": "giới tính"
+	},
+	"male": {
+		"": "nam"
+	},
+	"female": {
+		"": "nữ"
+	},
+	"address": {
+		"": "địa chỉ"
+	},
+	"ward": {
+		"": "phường"
+	},
+	"district": {
+		"": "quận"
+	},
+	"province": {
+		"": "tỉnh"
+	},
+	"city": {
+		"": "thành phố"
+	},
+	"ethnic": {
+		"": "dân tộc"
+	},
+	"relatives": {
+		"": "người thân"
+	},
+	"reason": {
+		"": "lý do"
+	},
+	"insurance":{
+		"": "bảo hiểm"
+	},
+	"career": {
+		"": "nghề nghiệp"
+	},
+	"workplace": {
+		"": "nơi làm việc"
+	},
+	"passport": {
+		"": "số hộ chiếu"
+	},
+	"national": {
+		"": "quốc tịch"
+	},
+	"confirm": {
+		"": "xác nhận"
+	},
+	"patient": {
+		"": "bệnh nhân",
+		"code": "mã bệnh nhân",
+		"records": "hồ sơ bệnh án",
+		"status": "tình trạng người bệnh"
+	},
+	"search": {
+		"": "tìm kiếm"
+	},
+	"code": {
+		"": "mã"
+	},
+	"assign": {
+		"": "chỉ định"
+	},
+	"fee": {
+		"": "chi phí"
+	},
+	"service": {
+		"": "dịch vụ"
+	},
+	"age": {
+		"": "tuổi"
+	},
+	"diagnose": {
+		"": "chẩn đoán",
+		"incoming": "chẩn đoán lúc tiếp nhận",
+		"outpatient": "chẩn đoán ra viện"
+	},
+	"medicine": {
+		"": "dược phẩm"
+	},
+	"indicators": {
+		"": "chỉ số"
+	},
+	"conditions": {
+		"": "điều kiện"
+	},
+	"quantity": {
+		"": "số lượng"
+	},
+	"inventory": {
+		"": "tồn kho"
+	},
+	"ingredient": {
+		"": "thành phần"
+	},
+	"supplier": {
+		"": "nhà cung cấp"
+	},
+	"cost": {
+		"": "giá"
+	},
+	"info": {
+		"": "thông tin"
+	},
+	"conclusion": {
+		"": "kết luận"
+	},
+	"morning": {
+		"": "sáng"
+	},
+	"noon": {
+		"": "trưa"
+	},
+	"afternoon": {
+		"": "chiều"
+	},
+	"night": {
+		"": "tối"
+	},
+	"day": {
+		"": "ngày"
+	},
+	"empty": {
+		"": "trống",
+		"records": "chưa có dữ liệu"
+	},
+	"pay": {
+		"": "thanh toán"
+	},
+	"paid": {
+		"": "đã thanh toán"
+	},
+	"discount": {
+		"": "giảm giá"
+	},
+	"received": {
+		"": "đã nhận"
+	},
+	"cash": {
+		"": "tiền mặt"
+	},
+	"cancel": {
+		"": "hủy",
+		"payment": "hủy thanh toán"
+	},
+	"please": {
+		"": "vui lòng",
+		"check before cancel": "vui lòng kiểm tra các thông tin trước khi hủy"
+	},
+	"vietnamese": {
+		"": "tiếng việt"
+	},
+	"group": {
+		"": "nhóm",
+		"code": "mã nhóm"
+	},
+	"chapter": {
+		"": "chương",
+		"code": "mã chương"
+	},
+	"edit": {
+		"": "sửa"
+	},
+	"save": {
+		"": "lưu"
+	},
+	"description": {
+		"": "chi tiết"
+	},
+	"copy": {
+		"": "sao chép"
+	},
+	"default": {
+		"": "mặc định",
+		"new": "thêm mặc định"
+	},
+	"describe": {
+		"": "mô tả"
+	},
+	"extend": {
+		"": "mở rộng"
+	},
+	"time": {
+		"": "thời gian"
+	},
+	"summary": {
+		"": "tổng kết"
+	},
+	"temperature": {
+		"": "nhiệt độ"
+	},
+	"weight": {
+		"": "nặng"
+	},
+	"height": {
+		"": "chiều cao"
+	},
+	"family": {
+		"": "gia đình"
+	},
+	"health": {
+		"": "sức khỏe"
+	},
+	"totality": {
+		"": "toàn phần"
+	},
+	"form": {
+		"": "từ",
+		"date": "từ ngày"
+	},
+	"to": {
+		"": "đến",
+		"date": "đến ngày"
+	},
+	"methodology": {
+		"": "phương pháp"
+	},
+	"treatment": {
+		"": "điều trị",
+		"direction": "hướng điều trị"
+	},
+	"list": {
+		"": "danh sách"
+	},
+	"user": {
+		"": "người dùng"
+	},
+	"content": {
+		"": "nội dung"
+	}
+}

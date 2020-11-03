@@ -1,0 +1,12 @@
+<app-header></app-header>
+<div class="container p-5">
+	<div class="card card-body border-0 box-shadow text-center" *ngIf="order">
+		<h1 class="display-2 bg-warning"><app-clipboard [content]="order.id"></app-clipboard></h1>
+		<p>Please keep this ID for tracking</p>
+		<div class="text-right">
+			<button type="button" class="btn btn-primary" [routerLink]="['/main/login']"><i class="fa fa-sign-in"></i> LOGIN</button>
+			<p class="small"><em>System will support you to store the ID into your account, please signup / signin before booking next orders</em></p>
+		</div>
+	</div>
+</div>
+<app-footer></app-footer>

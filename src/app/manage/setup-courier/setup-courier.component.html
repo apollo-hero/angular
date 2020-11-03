@@ -1,0 +1,142 @@
+<app-header></app-header>
+<div class="container">
+	<div class="row mt-3">
+		<div class="d-none d-sm-block col-sm-3 mb-3">
+			<app-my-menu></app-my-menu>
+		</div>
+		<div class="d-block d-sm-none position-fixed" style="z-index: 1">
+			<button type="button" class="btn btn-dark box-shadow" data-toggle="collapse" data-target="#clsMenu"><i class="fa fa-bars"></i></button>
+			<div id="clsMenu" class="collapse bg-white">
+				<app-my-menu></app-my-menu>
+			</div>
+		</div>
+		<div class="col-sm-9">
+			<div class="card-deck">
+				<div class="card text-white bg-primary">
+					<div class="card-body">
+						<div class="d-flex justify-content-between">
+							<h5 class="card-title">{{page.count}}</h5>
+							<i class="fa fa-2x fa-pencil"></i>
+						</div>
+						<p class="card-text">Total</p>
+					</div>
+				</div>
+				<div class="card text-white bg-warning">
+					<div class="card-body">
+						<div class="d-flex justify-content-between">
+							<h5 class="card-title">{{companies[0]?.updated_dt | amTimeAgo}}</h5>
+							<i class="fa fa-2x fa-clock-o"></i>
+						</div>
+						<p class="card-text">Latest</p>
+					</div>
+				</div>
+			</div>
+			<hr/>
+			<ul class="nav nav-pills mb-3">
+				<li class="nav-item">
+					<button type="button" class="btn btn-outline-primary active" data-toggle="pill" data-target="#pills-1">Company</button>
+				</li>
+				<li class="nav-item">
+					<button type="button" class="btn btn-outline-primary" data-toggle="pill" data-target="#pills-2">Courier</button>
+				</li>
+			</ul>
+			<div class="tab-content" id="pills-tabContent">
+				<div class="tab-pane fade show active" id="pills-1">
+					<div class="d-flex justify-content-between">
+						<p class="lead">Companies</p>
+						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEdit"> <i class="fa fa-plus"></i> </button>
+					</div>
+					<div class="list-group table-responsive">
+						<div class="list-group-item" *ngFor="let data of companies" [ngClass]="{'bg-danger': data.deleted}">
+							<div class="d-flex justify-content-between">
+								<div>
+									<small class="badge badge-secondary">{{data.updated_dt | amTimeAgo}}</small>
+									<p><strong>{{data.name}}</strong></p>
+								</div>
+								<div>
+									<div class="btn-group">
+										<button type="button" class="btn btn-success" (click)="detailCourier(frmDetail, {'companyId':data.id}); appServices.tab('pills-2')"><i class="fa fa-cog"></i></button>
+										<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalEdit" (click)="appServices.assignFrm(frmEdit, data)"><i class="fa fa-edit"></i></button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="d-flex justify-content-between p-3 box-shadow">
+						<div class="small text-muted my-auto"><b>{{companies.length}}</b> of <b>{{page.count}}</b> records</div>
+						<button type="button" class="btn btn-sm btn-dark" (click)="loadCompany(filter, true)">More</button>
+					</div>
+				</div>
+				<div class="tab-pane fade" id="pills-2">
+					<form #frmDetail="ngForm" autocomplete="off">
+						<input type="hidden" name="id" [(ngModel)]="frmDetail['id']">
+						<input type="hidden" name="delivery_time" [(ngModel)]="frmDetail['delivery_time']">
+						<input type="hidden" name="insurance" [(ngModel)]="frmDetail['insurance']">
+						<input type="hidden" name="commission" [(ngModel)]="frmDetail['commission']">
+						<input type="hidden" name="currency" [(ngModel)]="frmDetail['currency']">
+						<input type="hidden" name="tracking" [(ngModel)]="frmDetail['tracking']">
+						<input type="hidden" name="photo_confirm" [(ngModel)]="frmDetail['photo_confirm']">
+						<input type="hidden" name="apiKey" [(ngModel)]="frmDetail['apiKey']">
+						<input type="hidden" name="identify" [(ngModel)]="frmDetail['identify']">
+						<input type="hidden" name="password" [(ngModel)]="frmDetail['password']">
+						<input type="hidden" name="companyId" [(ngModel)]="frmDetail['companyId']">
+						<div class="row">
+							<div class="col-sm-6">
+								<app-input-group type="text" name="delivery_time" placeholder="Delivery Time" [data]="frmDetail" required="true"></app-input-group>
+								<app-input-group type="text" name="insurance" placeholder="Insurance" [data]="frmDetail" required="true"></app-input-group>
+								<div class="d-flex justify-content-between">
+									<app-input-group type="text" name="commission" placeholder="Commision" [data]="frmDetail" required="true"></app-input-group>
+									<app-input-group type="text" name="currency" placeholder="Currency" [data]="frmDetail" required="true"></app-input-group>
+								</div>
+								<div class="d-flex justify-content-between">
+									<div class="my-auto">
+										<p class="m-0">Tracking Available</p>
+									</div>
+									<app-switch name="tracking" [data]="frmDetail"></app-switch>
+								</div>
+								<div class="d-flex justify-content-between">
+									<div class="my-auto">
+										<p class="m-0">Confirm by Photo</p>
+									</div>
+									<app-switch name="photo_confirm" [data]="frmDetail"></app-switch>
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<app-input-group type="text" name="apiKey" placeholder="API" [data]="frmDetail"></app-input-group>
+								<app-input-group type="text" name="identify" placeholder="Identify" [data]="frmDetail"></app-input-group>
+								<app-input-group type="text" name="password" placeholder="Password" [data]="frmDetail"></app-input-group>
+								<p><strong>Postmen Transport Rates API</strong></p>
+							</div>
+						</div>
+						<div class="btn-group">
+							<button type="button" class="btn btn-dark" [disabled]="frmDetail.form.invalid" (click)="saveCourier(frmDetail.value)"><i class="fa fa-save"></i></button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="modalEdit" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<form #frmEdit="ngForm" autocomplete="off">
+				<input type="hidden" name="id" [(ngModel)]="frmEdit['id']">
+				<input type="hidden" name="name" [(ngModel)]="frmEdit['name']">
+				<div class="modal-body">
+					<app-input-group type="text" name="name" placeholder="Name" [data]="frmEdit" required="true"></app-input-group>
+				</div>
+				<div class="modal-footer d-flex justify-content-between">
+					<div class="my-auto">
+						<small><em>Function update</em></small>
+					</div>
+					<div class="btn-group">
+						<button type="button" class="btn btn-dark" [disabled]="frmEdit.form.invalid" (click)="doSave(frmEdit.value); frmEdit.reset()"><i class="fa fa-save"></i></button>
+						<button type="button" class="btn btn-outline-dark" data-dismiss="modal" (click)="frmEdit.reset()"><i class="fa fa-times"></i></button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<app-footer></app-footer>

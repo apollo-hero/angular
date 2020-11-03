@@ -1,0 +1,257 @@
+<app-header></app-header>
+<app-install></app-install>
+<div id="player" class="card text-center text-white bg-dark bg-opacity">
+	<div class="embed-responsive embed-responsive-21by9">
+		<iframe id="hero-video" class="embed-responsive-item" src="https://www.youtube.com/embed/KWSd9Us0XFc?enablejsapi=1&rel=0&showinfo=0&controls=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	</div>
+	<div class="card-img-overlay opacity-content mt-5" (click)="playVideo()">
+		<h1 style="font-size: 4rem"><span class="text-warning">My</span> <span class="text-danger">Freight</span> Company</h1>
+		<h2 class="h5 tex-danger">HOW TO</h2>
+	</div>
+</div>
+<section>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-2 pbtm bg-color mt-5" style="margin-top: 500px;">
+				<div class="hen-box3">
+					<img src="assets/img/hen.png">
+				</div>
+			</div>
+	
+			<div class="col-md-8 pbtm bg1-color" style="background-color: #ffffff;">
+				<div class="nav tab mt-4">
+					<!-- <li class="nav-item"> -->
+						<a class="tablinks active" data-toggle="tab" id="defaultOpen" data-target="#tab-1">QUOTE</a>
+					<!-- </li> -->
+					<!-- <li class="nav-item"> -->
+						<a class="tablinks" data-toggle="tab" data-target="#tab-2">TRACK</a>
+					<!-- </li> -->
+				</div>
+				<div class="tab-content">
+					<div class="tab-pane fade show active p-3" id="tab-1">
+						<form #frmQuote="ngForm" autocomplete="off" autofill="off">
+							<input type="hidden" name="countryIdFrom" [(ngModel)]="frmQuote['countryIdFrom']">
+							<input type="hidden" name="countryFrom" [(ngModel)]="frmQuote['countryFrom']">
+							<input type="hidden" name="suburbFrom" [(ngModel)]="frmQuote['suburbFrom']">
+							<input type="hidden" name="postalFrom" [(ngModel)]="frmQuote['postalFrom']">
+							<input type="hidden" name="pickup_type" [(ngModel)]="frmQuote['pickup_type']">
+							<input type="hidden" name="countryIdTo" [(ngModel)]="frmQuote['countryIdTo']">
+							<input type="hidden" name="countryTo" [(ngModel)]="frmQuote['countryTo']">
+							<input type="hidden" name="suburbTo" [(ngModel)]="frmQuote['suburbTo']">
+							<input type="hidden" name="postalTo" [(ngModel)]="frmQuote['postalTo']">
+							<input type="hidden" name="drop_type" [(ngModel)]="frmQuote['drop_type']">
+							<input type="hidden" name="parcels" [(ngModel)]="frmQuote['parcels']">
+							<input type="hidden" name="weight" [(ngModel)]="frmQuote['weight']">
+							<input type="hidden" name="length" [(ngModel)]="frmQuote['length']">
+							<input type="hidden" name="width" [(ngModel)]="frmQuote['width']">
+							<input type="hidden" name="height" [(ngModel)]="frmQuote['height']">
+							<input type="hidden" name="qty" [(ngModel)]="frmQuote['qty']">
+							<div id="myprofile" class="tabcontent">
+								<div class="row mb-3 pbtm">
+									<div class="col-sm-2 my-auto text-right">
+										<label class="control-label label-middle">From</label>
+									</div>
+									<div class="col-sm-5">
+										<app-input-group type="text" placeholder="Country" classInput="dropdown-toggle" name="countryFrom" [data]="frmQuote" (click)="loadCountryFrom()" (keyup)="selectCountryFrom($event.target.value)"></app-input-group>
+										<app-autocomplete [arr]="countryFrom" display="name" (choose)="appServices.assignFrm(frmQuote, {'countryFrom': $event.name, 'countryIdFrom': $event.id})"></app-autocomplete>
+									</div>
+									<div class="col-sm-5">
+										<app-input-group type="text" placeholder="Suburb postcode" classInput="dropdown-toggle" name="postalFrom" [data]="frmQuote" (click)="loadPostalFrom(frmQuote['countryIdFrom'])" (keyup)="selectPostalFrom($event.target.value)"></app-input-group>
+										<app-autocomplete [arr]="postalsFrom" stateAbbr="stateAbbr" suburb="suburb" display="postCode" subtitle="country" (choose)="appServices.assignFrm(frmQuote, {'postalFrom': $event.postCode})"></app-autocomplete>
+										<div class="d-flex flex-row">
+											<app-radio name="pickup_type" [data]="frmQuote" value="commercial" display="Commercial"></app-radio>
+											<app-radio name="pickup_type" [data]="frmQuote" value="residential" display="Residential"></app-radio>
+										</div>
+									</div>
+								</div>
+
+								<div class="row mb-3">
+									<div class="col-sm-2 my-auto text-right">
+										<label class="control-label label-middle">To</label>
+									</div>
+									<div class="col-sm-5">
+										<app-input-group type="text" placeholder="Country" classInput="dropdown-toggle" name="countryTo" [data]="frmQuote" (click)="loadCountryTo()" (keyup)="selectCountryTo($event.target.value)"></app-input-group>
+										<app-autocomplete [arr]="countryTo" display="name" (choose)="appServices.assignFrm(frmQuote, {'countryTo': $event.name, 'countryIdTo': $event.id})"></app-autocomplete>
+									</div>
+									<div class="col-sm-5">
+										<app-input-group type="text" placeholder="Suburb postcode" classInput="dropdown-toggle" name="postalTo" [data]="frmQuote" (click)="loadPostalTo(frmQuote['countryIdTo'])" (keyup)="selectPostalTo($event.target.value)"></app-input-group>
+										<app-autocomplete [arr]="postalsTo" stateAbbr="stateAbbr" suburb="suburb" display="postCode" subtitle="country" (choose)="appServices.assignFrm(frmQuote, {'postalTo': $event.postCode})"></app-autocomplete>
+										<div class="d-flex flex-row">
+											<app-radio name="drop_type" [data]="frmQuote" value="commercial" display="Commercial"></app-radio>
+											<app-radio name="drop_type" [data]="frmQuote" value="residential" display="Residential"></app-radio>
+											<br>
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+							<div class="row">
+								<div class="col-ms-12">
+									<table>
+										<td style="width: 180px;">
+											<app-input-group type="text" name="parcel_type" classInput="dropdown-toggle" placeholder="Parcel Type" [data]="frmQuote" (click)="loadParcelType()"></app-input-group>
+											<app-autocomplete [arr]="parcel_type" display="name" (choose)="appServices.assignFrm(frmQuote, {'parcel_type': $event.name})"></app-autocomplete>
+										</td>
+										<td style="width: 150px;">
+											<app-input-group type="text" name="weight" placeholder="Weight" [data]="frmQuote"></app-input-group>
+										</td>
+										<td style="width: 100px;">
+											<app-input-group type="text" name="length" placeholder="Length" [data]="frmQuote"></app-input-group>
+										</td>
+										<td style="width: 100px;">
+											<app-input-group type="text" name="width" placeholder="Width" [data]="frmQuote"></app-input-group>
+										</td>
+										<td style="width: 100px;">
+											<app-input-group type="text" name="height" placeholder="Height" [data]="frmQuote"></app-input-group>
+										</td>
+										<td style="width: 135px;">
+											<app-input-group type="text" name="qty" placeholder="Qty" [data]="frmQuote"></app-input-group>
+										</td>
+										<td style="width: 140px;">
+											<button type="button" class="btn btn-primary" style="border-radius: 3px;" (click)="addParcel(frmQuote.value, frmQuote); frmQuote['parcels'] = parcels">
+												<i class="fa fa-plus-circle"></i> Parcel
+											</button>
+										</td>
+									</table>
+								</div>
+								
+								
+							</div>
+							<div class="p-4">
+								<div class="card-columns">
+									<div class="card card-body border-0 box-shadow" *ngFor="let data of parcels">
+										<p>{{data.qty ? data.qty : '1'}} x <strong>{{data.type}}</strong></p>
+										<p class="m-0"><small>Weight:</small> {{data.weight}}(gram)</p>
+										<p class="m-0" *ngIf="data.length && data.width && data.height"><small>Dimension:</small> {{data.length}}(cm) x {{data.width}}(cm) x {{data.height}}(cm)</p>
+									</div>
+								</div>
+							</div>
+							<button type="button" *ngIf="!member" style="border-radius: 3px;" class="btn btn-primary btn-block submit-btn" (click)="doQuote(frmQuote)">QUICK QUOTE</button>
+						</form>
+					</div>
+					<div class="tab-pane fade p-3" id="tab-2">
+						<h5 class="m-0" style="font-weight: 900; font-family: Open Sans, sans-serif; font-size: 25px; padding: 20px; color: #696565;">Track by tracking code</h5>
+						<form #frmTrack="ngForm">
+							<input type="hidden" name="id" [(ngModel)]="frmTrack['id']">
+							<app-input-group type="text" name="id" placeholder="Input your order number here" [data]="frmTrack"></app-input-group>
+							<div class="text-center"><button type="button" class="btn btn-lg btn-primary" style="border-radius: 3px;" (click)="doTracking(frmTrack.value)">GO !</button></div>
+						</form>
+						<div *ngIf="track || order">
+							<h3>Live Tracking</h3>
+							<div class="row">
+								<div class="col-sm-8" *ngIf="track && track.location">
+									<div class="embed-responsive embed-responsive-16by9">
+										<iframe class="embed-responsive-item" width="100%" height="100%" framebtrack="0" scrolling="no" marginheight="0" marginwidth="0" [attr.src]="'https://maps.google.com/maps?q=' + track.location.lat + ',' + track.location.lng + '&t=&z=13&ie=UTF8&iwloc=&output=embed' | safe:'resourceUrl'"></iframe>
+									</div>
+								</div>
+								<div class="col-sm-4" *ngIf="order && order.original && order.destination">
+									<p class="m-0"><strong>Original</strong></p>
+									<p>{{order.original.address}}</p>
+									<p class="m-0"><strong>Destination</strong></p>
+									<p>{{order.destination.address}}</p>
+									<div class="d-flex justify-content-between border text-white p-3 mb-3" [ngClass]="{'bg-purple':order.order_status=='await','bg-primary':order.order_status=='in transit','bg-info':order.order_status=='onboard','bg-success':order.order_status=='delivered'}">
+										Status
+										<span class="text-uppercase">{{order.order_status}}</span>
+									</div>
+									<div *ngIf="order.parcels">
+										<p class="m-0"><strong>Parcels</strong></p>
+										<div *ngFor="let data of order.parcels" class="border p-2">
+											<p class="m-0">{{data.qty}} x {{data.type}}</p>
+											<p class="m-0">{{data.weight}}({{data.unit_weight}})</p>
+											<p class="m-0">{{data.length}}({{data.unit_dimension}}) x {{data.width}}({{data.unit_dimension}}) x {{data.height}}({{data.unit_dimension}})</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+	
+			<div class="col-md-2">
+				<a href="#">
+					<button class="varti_button">
+						<u> Click For Promos </u>
+					</button>
+				</a>
+			</div>
+		</div>
+
+	</div>
+</section>
+<section>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-2">
+
+			</div>
+			<div class="col-md-8 pb-0">
+				<div class="mt-3">
+					<div class="pbtm bg1-color">
+						<h5 class="m-0" style="font-weight: 900; font-family: Open Sans, sans-serif; font-size: 25px; padding: 20px; color: #696565;">Current Status on Items</h5>
+					</div>
+					<ol class="cd-breadcrumb triangle">
+						<li id="first">
+							<div class="steps-box">
+								<p class="step-number">1</p>
+								<p class="step-text">Awaiting</p>
+								<p class="step-text">Pick up</p>
+							</div>
+						</li>
+						<li id="second">
+							<div class="steps-box">
+								<p class="step-number">2</p>
+								<p class="step-text">In Transit</p>
+							</div>
+							
+						</li>
+						<li id="third">
+							<div class="steps-box">
+								<p class="step-number">3</p>
+								<p class="step-text">Onboard</p>
+								<p class="step-text">For Delivery</p>
+							</div>
+							
+						</li>
+						<li id="fourth">
+							<div class="steps-box">
+								<p class="step-number">4</p>
+								<p class="step-text">Delivered</p>
+							</div>
+						</li>
+					</ol>
+				</div>
+			</div>
+
+		</div>
+	</div>
+ 
+</section>
+
+
+<div id="modalAuth" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<form #frmSignin="ngForm" class="p-3" autocomplete="off">
+				<app-input-group type="email" name="email" placeholder="Email" [data]="frmSignin.value" required="true"></app-input-group>
+				<app-input-group type="password" name="pwd" placeholder="Password" [data]="frmSignin.value" required="true"></app-input-group>
+				<div class="d-flex justify-content-between">
+					<div class="custom-control custom-checkbox mb-3">
+						<input type="checkbox" class="custom-control-input" id="chkRemember">
+						<label class="custom-control-label text-white" for="chkRemember">Remember</label>
+					</div>
+					<a class="text-white" data-toggle="modal" data-target="#modalForgot">Forgot?</a>
+				</div>
+				<button class="btn btn-light btn-block text-uppercase box-shadow" type="button" [disabled]="frmSignin.form.invalid" (click)="doSignin(frmSignin.value)" data-dismiss="modal">Sign in</button>
+				<div class="text-center mt-3" *ngIf="app && (app.gg_oath_id || app.fb_app_id)">
+					<hr>
+					<p class="lead">Social Signin</p>
+					<button class="btn btn-danger mx-1" *ngIf="app.gg_oath_id" (click)="loginGG()"><span class="fa fa-google"></span></button>
+					<button class="btn btn-primary mx-1" *ngIf="app.fb_app_id" (click)="loginFB()"><span class="fa fa-facebook"></span></button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<app-footer></app-footer>

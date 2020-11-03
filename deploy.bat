@@ -1,0 +1,1 @@
+cmd /c npm run build:ssr && rmdir /q /s functions\dist && xcopy dist functions\dist\* /E /Y && npm run build && firebase deploy

@@ -1,0 +1,86 @@
+<app-header></app-header>
+<div class="container p-5">
+	<h5 class="m-0" style="font-weight: 900; font-family: Open Sans, sans-serif; font-size: 25px; padding: 20px; color: #696565;">Track by tracking code</h5>
+	<form #frmTrack="ngForm">
+		<input type="hidden" name="id" [(ngModel)]="frmTrack['id']">
+		<app-input-group type="text" name="id" placeholder="Input your order number here" required="true" [data]="frmTrack"></app-input-group>
+		<div class="text-center"><button type="button" class="btn btn-lg btn-primary" style="border-radius: 2px;" (click)="doTracking(frmTrack.value)">GO !</button></div>
+	</form>
+	<div *ngIf="track || order">
+		<h3>Live Tracking</h3>
+		<div class="row">
+			<div class="col-sm-8" *ngIf="track && track.location">
+				<div class="embed-responsive embed-responsive-16by9">
+					<iframe class="embed-responsive-item" width="100%" height="100%" framebtrack="0" scrolling="no" marginheight="0" marginwidth="0" [attr.src]="'https://maps.google.com/maps?q=' + track.location.lat + ',' + track.location.lng + '&t=&z=13&ie=UTF8&iwloc=&output=embed' | safe:'resourceUrl'"></iframe>
+				</div>
+			</div>
+			<div class="col-sm-4" *ngIf="order && order.original && order.destination">
+				<p class="m-0"><strong>Original</strong></p>
+				<p>{{order.original.address}}</p>
+				<p class="m-0"><strong>Destination</strong></p>
+				<p>{{order.destination.address}}</p>
+				<div class="d-flex justify-content-between border text-white p-3 mb-3" [ngClass]="{'bg-purple':order.order_status=='await','bg-primary':order.order_status=='in transit','bg-info':order.order_status=='onboard','bg-success':order.order_status=='delivered'}">
+					Status 
+					<span class="text-uppercase">{{order.order_status}}</span>
+				</div>
+				<div *ngIf="order.parcels">
+					<p class="m-0"><strong>Parcels</strong></p>
+					<div *ngFor="let data of order.parcels" class="border p-2">
+						<p class="m-0">{{data.qty}} x {{data.type}}</p>
+						<p class="m-0">{{data.weight}} ({{data.unit_weight}})</p>
+						<p class="m-0">{{data.length}} x {{data.width}} x {{data.height}} ({{data.unit_dimension}})</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<section>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-2">
+
+			</div>
+			<div class="col-md-8 pb-0">
+				<div class="mt-3">
+					<div class="pbtm bg1-color">
+						<h5 class="m-0" style="font-weight: 900; font-family: Open Sans, sans-serif; font-size: 25px; padding: 20px; color: #696565;">Current Status on Items</h5>
+					</div>
+					<ol class="cd-breadcrumb triangle">
+						<li id="first">
+							<div class="steps-box">
+								<p class="step-number">1</p>
+								<p class="step-text">Awaiting</p>
+								<p class="step-text">Pick up</p>
+							</div>
+						</li>
+						<li id="second">
+							<div class="steps-box">
+								<p class="step-number">2</p>
+								<p class="step-text">In Transit</p>
+							</div>
+							
+						</li>
+						<li id="third">
+							<div class="steps-box">
+								<p class="step-number">3</p>
+								<p class="step-text">Onboard</p>
+								<p class="step-text">For Delivery</p>
+							</div>
+							
+						</li>
+						<li id="fourth">
+							<div class="steps-box">
+								<p class="step-number">4</p>
+								<p class="step-text">Delivered</p>
+							</div>
+						</li>
+					</ol>
+				</div>
+			</div>
+
+		</div>
+	</div>
+ 
+</section>
+<app-footer></app-footer>

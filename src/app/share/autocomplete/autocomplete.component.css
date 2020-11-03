@@ -1,0 +1,12 @@
+.autocomplete {
+	z-index: 999;
+	position: absolute;
+	border: 1px solid #eee;
+	max-height: 30vh;
+	min-width: 30vw;
+	overflow: auto;
+	left: 0;
+}
+.autocomplete.list-group .list-group-item {
+	border-radius: 0;
+}

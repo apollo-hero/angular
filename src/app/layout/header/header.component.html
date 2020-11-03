@@ -1,0 +1,76 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-6 my-auto">
+			<img class="img-fluid" style="max-height: 80px;" src="/assets/img/full-logo.png" [routerLink]="['/main/home']">
+		</div>
+		<div class="col-sm-3 my-auto">
+			<img class="img-fluid" src="/assets/img/quotes.png">
+		</div>
+		<div class="col-sm-3 text-center">
+			<img class="img-fluid" style="max-height: 30px;" src="/assets/img/small-logo.png">
+			<div *ngIf="!member">
+				<button class="btn btn-primary custom-btn" [routerLink]="['/main/login']">
+					LOGIN
+				</button>
+				<a class="nav-link text-primary" [routerLink]="['/main/register']">Sign Up & save up to 30%</a>
+			</div>
+			<div *ngIf="member">
+				<h4 class="text-truncate">Hi, {{member.fristName}}{{member.lastName}}</h4>
+				<div class="d-flex justify-content-around">
+					<a class="nav-link text-primary" [routerLink]="['/main/profile/', member.id]">My Account</a><a class="nav-link text-primary" (click)="doSignout()">Sign Out</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<nav class="navbar navbar-expand-lg navbar-light box-shadow">
+	<div class="container">
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<nav class="main-nav float-right d-none d-lg-block" style="align-items: center;" id="navbarSupportedContent">
+			<ul>
+				<li class="drop-down" id="quick">
+					<a [routerLink]="['/main/home']" [ngClass]="{'active':router.url.includes('/main/home')}">Quick Quote
+						<br class="mobile-hide">
+					</a>
+					<ul>
+                        <li>
+                            <a href="#">1</a>
+                        </li>
+                    </ul>
+				</li>
+				<li class="drop-down" id="tracking">
+					<a [routerLink]="['/main/tracking']" [ngClass]="{'active':router.url.includes('/main/tracking')}">Tracking
+						<br class="mobile-hide">
+					</a>
+					<ul>
+                        <li>
+                            <a href="#">2</a>
+                        </li>
+                    </ul>
+				</li>
+				<li class="drop-down" id="aboutus">
+					<a [routerLink]="['/main/about']" [ngClass]="{'active':router.url.includes('/main/about')}">About us
+						<br class="mobile-hide">
+					</a>
+					<ul>
+                        <li>
+                            <a href="#">3</a>
+                        </li>
+                    </ul>
+				</li>
+				<li class="drop-down" id="support">
+					<a [routerLink]="['/main/contact']" [ngClass]="{'active':router.url.includes('/main/contact')}">Customer Support
+						<br class="mobile-hide">
+					</a>
+					<ul>
+                        <li>
+                            <a href="#">4</a>
+                        </li>
+                    </ul>
+				</li>
+			</ul>
+		</nav>
+	</div>
+</nav>

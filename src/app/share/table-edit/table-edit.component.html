@@ -1,0 +1,3 @@
+<div class="input-group" readonly (dblclick)="doEdit($event.target)">
+	<input type="text" class="form-control" disabled [(ngModel)]="data[field]" (keyup.enter)="doEnter($event.target)">
+</div>

@@ -1,0 +1,262 @@
+<app-header></app-header>
+<div class="container">
+	<div class="row mt-3">
+		<div class="d-none d-sm-block col-sm-3 mb-3">
+			<app-my-menu></app-my-menu>
+		</div>
+		<div class="d-block d-sm-none position-fixed" style="z-index: 1">
+			<button type="button" class="btn btn-dark box-shadow" data-toggle="collapse" data-target="#clsMenu"><i class="fa fa-bars"></i></button>
+			<div id="clsMenu" class="collapse bg-white">
+				<app-my-menu></app-my-menu>
+			</div>
+		</div>
+		<div class="col-sm-9">
+			<div class="card-deck">
+				<div class="card text-white bg-primary">
+					<div class="card-body">
+						<div class="d-flex justify-content-between">
+							<h5 class="card-title">{{page.count}}</h5>
+							<i class="fa fa-2x fa-pencil"></i>
+						</div>
+						<p class="card-text">Total</p>
+					</div>
+				</div>
+				<div class="card text-white bg-warning">
+					<div class="card-body">
+						<div class="d-flex justify-content-between">
+							<h5 class="card-title">{{countries[0]?.updated_dt | amTimeAgo}}</h5>
+							<i class="fa fa-2x fa-clock-o"></i>
+						</div>
+						<p class="card-text">Latest</p>
+					</div>
+				</div>
+			</div>
+			<hr/>
+			<ul class="nav nav-pills mb-3">
+				<li class="nav-item">
+					<button type="button" class="btn btn-outline-primary active" data-toggle="pill" data-target="#pills-1" (click)="loadCountry()">Country</button>
+				</li>
+				<li class="nav-item">
+					<button type="button" class="btn btn-outline-primary" data-toggle="pill" data-target="#pills-2" (click)="loadSuburb()">Suburb</button>
+				</li>
+				<li class="nav-item">
+					<button type="button" class="btn btn-outline-primary" data-toggle="pill" data-target="#pills-3" (click)="loadPostal()">Postal</button>
+				</li>
+			</ul>
+			<div class="tab-content" id="pills-tabContent">
+				<div class="tab-pane fade show active" id="pills-1">
+					<div class="d-flex justify-content-between">
+						<p class="lead">Countries</p>
+						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCountry"> <i class="fa fa-plus"></i> </button>
+					</div>
+					<div class="list-group table-responsive">
+						<div class="list-group-item" *ngFor="let data of countries" [ngClass]="{'bg-danger': data.deleted}">
+							<div class="d-flex justify-content-between">
+								<div class="bg-dark text-white p-3">{{data.code}}</div>
+								<div class="my-auto">
+									<p class="m-0">{{data.name}}</p>
+								</div>
+								<div>
+									<div class="btn-group mb-3">
+										<button type="button" class="btn btn-outline-success" (click)="loadSuburb({'countryId':data.id}); appServices.tab('pills-2')">Suburb</button>
+										<button type="button" class="btn btn-outline-success" (click)="loadPostal({'countryId':data.id}); appServices.tab('pills-3')">Postal</button>
+										<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalCountry" (click)="appServices.assignFrm(frmCountry, data)"><i class="fa fa-edit"></i></button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="d-flex justify-content-between p-3 box-shadow">
+						<div class="small text-muted my-auto"><b>{{countries.length}}</b> of <b>{{page.count}}</b> records</div>
+						<button type="button" class="btn btn-sm btn-dark" (click)="loadCountry(filter, true)">More</button>
+					</div>
+				</div>
+				<div class="tab-pane fade" id="pills-2">
+					<div class="d-flex justify-content-between">
+						<p class="lead">Suburb</p>
+						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalSuburb"> <i class="fa fa-plus"></i> </button>
+					</div>
+					<div class="list-group table-responsive">
+						<div class="list-group-item" *ngFor="let data of suburbs" [ngClass]="{'bg-danger': data.deleted}">
+							<div class="d-flex justify-content-between">
+								<div class="my-auto">
+									<span class="badge badge-secondary">{{data.code}}</span>
+									<p class="m-0">{{data.name}}</p>
+								</div>
+								<div>
+									<div class="btn-group mb-3">
+										<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalSuburb" (click)="appServices.assignFrm(frmSuburb, data)"><i class="fa fa-edit"></i></button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="d-flex justify-content-between p-3 box-shadow" *ngIf="suburbs">
+						<div class="small text-muted my-auto"><b>{{suburbs.length}}</b> of <b>{{pageSuburb.count}}</b> records</div>
+						<button type="button" class="btn btn-sm btn-dark" (click)="loadCountry(filterSuburb, true)">More</button>
+					</div>
+				</div>
+				<div class="tab-pane fade" id="pills-3">
+					<div class="d-flex justify-content-between">
+						<p class="lead">Postal</p>
+						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalSuburb"> <i class="fa fa-plus"></i> </button>
+					</div>
+					<div class="list-group table-responsive">
+						<div class="list-group-item" *ngFor="let data of postals" [ngClass]="{'bg-danger': data.deleted}">
+							<div class="d-flex justify-content-between">
+								<div class="my-auto">
+									<p class="m-0">{{data.code}}</p>
+								</div>
+								<div>
+									<div class="btn-group mb-3">
+										<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalPostal" (click)="appServices.assignFrm(frmPostal, data)"><i class="fa fa-edit"></i></button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="d-flex justify-content-between p-3 box-shadow" *ngIf="postals">
+						<div class="small text-muted my-auto"><b>{{postals.length}}</b> of <b>{{pagePostal.count}}</b> records</div>
+						<button type="button" class="btn btn-sm btn-dark" (click)="loadCountry(filterPostal, true)">More</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="modalCountry" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+	<div class="modal-dialog modal-dialog-centered modal-lg">
+		<div class="modal-content">
+			<form #frmCountry="ngForm" autocomplete="off">
+				<input type="hidden" name="id" [(ngModel)]="frmCountry['id']">
+				<input type="hidden" name="code" [(ngModel)]="frmCountry['code']">
+				<input type="hidden" name="name" [(ngModel)]="frmCountry['name']">
+				<div class="modal-header">
+					<div class="icon-box bg-warning text-white"> <i class="fa fa-exclamation fa-3x"></i> </div>
+				</div>
+				<div class="modal-body">
+					<app-input-group type="text" name="code" placeholder="Code" [data]="frmCountry" required="true"></app-input-group>
+					<app-input-group type="text" name="name" placeholder="Name" [data]="frmCountry" required="true"></app-input-group>
+				</div>
+				<div class="modal-footer d-flex justify-content-between">
+					<div class="my-auto">
+						<small><em>Function update</em></small>
+					</div>
+					<div class="btn-group">
+						<button type="button" class="btn btn-dark" [disabled]="frmCountry.form.invalid" (click)="saveCountry(frmCountry.value); frmCountry.reset()"><i class="fa fa-save"></i></button>
+						<button type="button" class="btn btn-outline-dark" data-dismiss="modal" (click)="frmCountry.reset()"><i class="fa fa-times"></i></button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<div id="modalSuburb" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<form #frmSuburb="ngForm" autocomplete="off">
+				<input type="hidden" name="id" [(ngModel)]="frmSuburb['id']">
+				<input type="hidden" name="code" [(ngModel)]="frmSuburb['code']">
+				<input type="hidden" name="name" [(ngModel)]="frmSuburb['name']">
+				<input type="hidden" name="countryId" [(ngModel)]="frmSuburb['countryId']">
+				<div class="modal-header">
+					<div class="icon-box bg-warning text-white"> <i class="fa fa-exclamation fa-3x"></i> </div>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-sm-6">
+							<app-input-group type="text" name="code" placeholder="Code" [data]="frmSuburb"></app-input-group>
+							<app-input-group type="text" name="name" placeholder="Name" [data]="frmSuburb" required="true"></app-input-group>
+						</div>
+						<div class="col-sm-6">
+							<div class="d-flex justify-content-between">
+								<p class="my-auto">Country</p>
+								<div class="dropdown">
+									<button type="button" class="btn btn-sm btn-outline-dark nav-link dropdown-toggle" data-toggle="dropdown">Search</button>
+									<div class="dropdown-menu dropdown-menu-right" style="width: 250px">
+										<div class="p-3">
+											<app-input-group type="text" placeholder="Name" (doChange)="loadCountry({'name':{'ilike':'%'+$event.target.value+'%'}})"></app-input-group>
+										</div>
+										<p class="text-right m-0 mr-2 small"><em>Please input and click to search</em></p>
+									</div>
+								</div>
+							</div>
+							<div class="list-group list-group-scrollable">
+								<div class="list-group-item" *ngFor="let data of countries" [ngClass]="{'bg-dark text-white':frmSuburb['countryId']==data.id}" (click)="appServices.assignFrm(frmSuburb, {countryId: data.id})">
+									<p class="m-0 text-truncate">{{data.name}}</p>
+								</div>
+							</div>
+							<div class="d-flex justify-content-between p-3 box-shadow">
+								<div class="small text-muted my-auto"><b>{{countries.length}}</b> of <b>{{page.count}}</b> records</div>
+								<button type="button" class="btn btn-sm btn-dark" (click)="loadCountry(filter, true)">More</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer d-flex justify-content-between">
+					<div class="my-auto">
+						<small><em>Function update</em></small>
+					</div>
+					<div class="btn-group">
+						<button type="button" class="btn btn-dark" [disabled]="frmSuburb.form.invalid" (click)="saveSuburb(frmSuburb.value); frmSuburb.reset()"><i class="fa fa-save"></i></button>
+						<button type="button" class="btn btn-outline-dark" data-dismiss="modal" (click)="frmSuburb.reset()"><i class="fa fa-times"></i></button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<div id="modalPostal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<form #frmPostal="ngForm" autocomplete="off">
+				<input type="hidden" name="id" [(ngModel)]="frmPostal['id']">
+				<input type="hidden" name="code" [(ngModel)]="frmPostal['code']">
+				<input type="hidden" name="countryId" [(ngModel)]="frmPostal['countryId']">
+				<div class="modal-header">
+					<div class="icon-box bg-warning text-white"> <i class="fa fa-exclamation fa-3x"></i> </div>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-sm-6">
+							<app-input-group type="text" name="code" placeholder="Code" [data]="frmPostal" required="true"></app-input-group>
+						</div>
+						<div class="col-sm-6">
+							<div class="d-flex justify-content-between">
+								<p class="my-auto">Country</p>
+								<div class="dropdown">
+									<button type="button" class="btn btn-sm btn-outline-dark nav-link dropdown-toggle" data-toggle="dropdown">Search</button>
+									<div class="dropdown-menu dropdown-menu-right" style="width: 250px">
+										<div class="p-3">
+											<app-input-group type="text" placeholder="Name" (doChange)="loadCountry({'name':{'ilike':'%'+$event.target.value+'%'}})"></app-input-group>
+										</div>
+										<p class="text-right m-0 mr-2 small"><em>Please input and click to search</em></p>
+									</div>
+								</div>
+							</div>
+							<div class="list-group list-group-scrollable">
+								<div class="list-group-item" *ngFor="let data of countries" [ngClass]="{'bg-dark text-white':frmPostal['countryId']==data.id}" (click)="appServices.assignFrm(frmPostal, {countryId: data.id})">
+									<p class="m-0 text-truncate">{{data.name}}</p>
+								</div>
+							</div>
+							<div class="d-flex justify-content-between p-3 box-shadow">
+								<div class="small text-muted my-auto"><b>{{countries.length}}</b> of <b>{{page.count}}</b> records</div>
+								<button type="button" class="btn btn-sm btn-dark" (click)="loadCountry(filter, true)">More</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer d-flex justify-content-between">
+					<div class="my-auto">
+						<small><em>Function update</em></small>
+					</div>
+					<div class="btn-group">
+						<button type="button" class="btn btn-dark" [disabled]="frmPostal.form.invalid" (click)="savePostal(frmPostal.value); frmPostal.reset()"><i class="fa fa-save"></i></button>
+						<button type="button" class="btn btn-outline-dark" data-dismiss="modal" (click)="frmPostal.reset()"><i class="fa fa-times"></i></button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<app-footer></app-footer>

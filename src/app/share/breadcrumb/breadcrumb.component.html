@@ -1,0 +1,8 @@
+<nav aria-label="breadcrumb">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item" *ngFor="let data of breadcrumbs">
+			<a class="text-dark" *ngIf="data && (data.path != router.url)" [routerLink]="data.path">{{data.name}}</a>
+			<span class="text-muted" *ngIf="data.path == router.url">{{data.name}}</span>
+		</li>
+	</ol>
+</nav>

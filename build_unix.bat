@@ -1,0 +1,1 @@
+ng build --prod --output-path dist/browser --base-href / && firebase deploy --only hosting

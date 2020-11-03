@@ -1,0 +1,4 @@
+<div *ngIf="arr && arr.length > 0" class="position-fixed" style="top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1" (click)="arr=null"></div>
+<div class="list-group autocomplete box-shadow border-0" *ngIf="arr">
+	<div class="list-group-item border-0" style="z-index: 2" [ngClass]="{'active':data.id && value==data.id}" *ngFor="let data of arr" (click)="onChoose(data)"><span *ngIf="data[suburb]">{{data[suburb]}},</span><span *ngIf="data[stateAbbr]">{{data[stateAbbr]}},</span> {{data[display]}}</div>
+</div>

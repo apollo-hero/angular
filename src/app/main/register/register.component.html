@@ -1,0 +1,208 @@
+<app-header></app-header>
+<section class="bg-color" id="trap">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div align="right">
+					<div class="trapezoid ">
+						<div class="outer-box">
+							<a class="p-profile">Sign Up</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<div class="card border-0" id="about">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-2">
+				<div class="hen-box">
+					<img src="/assets/img/hen.png">
+				</div>
+			</div>
+			<div class="col-md-8 top">
+				<div class="about-content">
+					<div class="login-form">
+						<form #frmSignup="ngForm" class="signup-htm"
+							autocomplete="off">
+							<div class="row">
+								<div class="col-md-3 offset-md-1">
+									<label
+										class="control-label label-middle">First Name:</label>
+								</div>
+								<div class="col-md-6">
+									<app-input-group type="text"
+										name="firstName"
+										placeholder="Name"
+										[data]="frmSignup.value">
+									</app-input-group>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-3 offset-md-1">
+									<label
+										class="control-label label-middle">Last Name:</label>
+								</div>
+								<div class="col-md-6">
+									<app-input-group type="text"
+										name="lastName"
+										placeholder="Name"
+										[data]="frmSignup.value">
+									</app-input-group>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-3 offset-md-1">
+									<label
+										class="control-label label-middle">Username:</label>
+								</div>
+								<div class="col-md-6">
+									<app-input-group type="text"
+										name="username"
+										placeholder="Username"
+										[data]="frmSignup.value">
+									</app-input-group>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-3 offset-md-1">
+									<label
+										class="control-label label-middle">Company
+										Name:</label>
+								</div>
+								<div class="col-md-6">
+									<app-input-group type="text"
+										name="company"
+										placeholder="Company Name"
+										[data]="frmSignup.value">
+									</app-input-group>
+								</div>
+							</div>
+
+							<!-- <div class="row">
+								<div class="col-md-3 offset-md-1">
+									<label
+										class="control-label label-middle">Address:</label>
+								</div>
+								<div class="col-md-6">
+									<app-input-group type="text"
+										name="address"
+										placeholder="Address"
+										[data]="frmSignup.value">
+									</app-input-group>
+								</div>
+							</div> -->
+
+							<div class="row">
+								<div class="col-md-3 offset-md-1">
+									<label
+										class="control-label label-middle">Conatct
+										Number:</label>
+								</div>
+								<div class="col-md-6">
+									<app-input-group type="text"
+										name="officePhone"
+										placeholder="Conatct Number"
+										[data]="frmSignup.value">
+									</app-input-group>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-3 offset-md-1">
+									<label
+										class="control-label label-middle">Email:</label>
+								</div>
+								<div class="col-md-6">
+									<app-input-group type="email"
+										name="email"
+										placeholder="Email"
+										[data]="frmSignup.value">
+									</app-input-group>
+								</div>
+							</div>
+
+							<!-- <div class="row">
+								<div class="col-md-3 offset-md-1">
+									<label
+										class="control-label label-middle">Confirm
+										Email</label>
+								</div>
+								<div class="col-md-6">
+									<app-input-group type="email"
+										name="reemail"
+										placeholder="Confirm Email"
+										[data]="frmSignup.value">
+									</app-input-group>
+								</div>
+							</div> -->
+
+							<div class="row">
+								<div class="col-md-3 offset-md-1">
+									<label
+										class="control-label label-middle">Phone:</label>
+								</div>
+								<div class="col-md-6">
+									<app-input-group type="text"
+										name="cellPhone"
+										placeholder="Phone"
+										[data]="frmSignup.value">
+									</app-input-group>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-3 offset-md-1">
+									<label
+										class="control-label label-middle">Password:</label>
+								</div>
+								<div class="col-md-6">
+									<app-input-group
+										type="passowrd"
+										name="password"
+										placeholder="Password"
+										[data]="frmSignup.value">
+									</app-input-group>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-3 offset-md-1">
+									<label
+										class="control-label label-middle">Confirm
+										Password:</label>
+								</div>
+								<div class="col-md-6">
+									<app-input-group
+										type="passowrd"
+										name="repassword"
+										placeholder="Confirm Password"
+										[data]="frmSignup.value">
+									</app-input-group>
+								</div>
+							</div>
+
+							<div class="row text-right pbtm">
+								<div class="col-md-9 offset-md-1">
+									<!-- <app-button classBtn="btn-primary btn-lg btn-block text-uppercase" style="border-radius: 5px;" [disabled]="frmSignup.form.invalid" (doClick)="doSignup(frmSignup)" [loading]="!frmSignup['loading']" label="Create Account"></app-button> -->
+									<button type="button"
+										class="btn btn-primary submit-btn btn-block btn-lg text-uppercase box-shadow"
+										[disabled]="frmSignup.form.invalid"
+										(click)="doSignup(frmSignup)">Sign up</button>
+
+								</div>
+							</div>
+
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<app-footer></app-footer>

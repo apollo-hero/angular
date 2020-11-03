@@ -1,0 +1,190 @@
+.tab {
+    overflow: hidden;
+    border-bottom: 2px solid #D0D0D0;
+}
+.mt-4, .my-4 {
+    margin-top: 1.5rem!important;
+}
+.tab a.active {
+    border: 1px solid #D0D0D0;
+}
+.tab a {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+    color: #5E5E5E;
+    font-weight: 700;
+}
+.tab a:hover {
+    background-color: #ddd;
+}
+.pbtm {
+    padding-bottom: 20px;
+}
+.text-right {
+    text-align: right!important;
+}
+.hen-box3 {
+    z-index: 9999;
+    position: relative;
+    right: 60px;
+    top: 90px;
+}
+.mt-5 {
+    margin-top: 3rem !important;
+}
+.varti_button {
+    margin-top: 340px;
+    margin-right: 75px;
+    margin-left: -95px;
+    text-align: left;
+    border-bottom: 42px solid #18488B;
+    border-left: 18px solid #f5f9fc;
+    border-right: 0px solid #f5f9fc;
+    height: 42px;
+    width: 200px;
+    transform: rotate(90deg);
+    line-height: 38px;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 700;
+    border-top: 0px;
+}
+.submit-btn {
+    background: #18488B;
+    color: #fff;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+
+
+
+.cd-breadcrumb.triangle {
+    background-color: transparent;
+    padding: 0;
+}
+.cd-breadcrumb.triangle li {
+    position: relative;
+    padding: 0;
+    margin: 4px 0px 0px 0;
+}
+.cd-breadcrumb li {
+    float: left;
+    display: inline-block;
+    
+}
+.cd-breadcrumb.triangle #first> * {
+    position: relative;
+    padding: 1em .8em 1em 2.5em;
+    color: #fff;
+    background-color: #BC6DBC;
+    border-color: #BC6DBC;
+    font-size: 1.6rem;
+}
+
+.cd-breadcrumb.triangle #second> * {
+    position: relative;
+    padding: 1em .8em 1em 2.5em;
+    color: #fff;
+    background-color: #15478E;
+    border-color: #15478E;
+    font-size: 1.6rem;
+}
+.cd-breadcrumb.triangle #third> * {
+    position: relative;
+    padding: 1em .8em 1em 2.5em;
+    color: #fff;
+    background-color: #5597E5;
+    border-color: #5597E5;
+    font-size: 1.6rem;
+
+}
+.cd-breadcrumb.triangle #fourth> * {
+    position: relative;
+    padding: 1em .8em 1em 2.5em;
+    color: #fff;
+    background-color: #58E370;
+    border-color: #58E370;
+    font-size: 1.6rem;
+}
+.steps-box {
+    height: 118px;
+    text-align: center;
+    margin-left: -1px;
+}
+.step-number {
+    background: transparent;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    margin-bottom: 10px;
+    text-align: center;
+    margin-left: 21px;
+    font-weight: 700;
+}
+.step-text {
+    font-size: 20px;
+    font-weight: 700;
+    margin-top: -16px;
+}
+.cd-breadcrumb.triangle li::after, .cd-breadcrumb.triangle li > *::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 97%;
+    content: '';
+    height: 118px;
+    width: 118px;
+    border: 58px solid transparent;
+    border-right-width: 0;
+    border-left-width: 20px;
+}
+
+.cd-breadcrumb.triangle #first::after {
+    z-index: 1;
+    -webkit-transform: translateX(4px);
+    -moz-transform: translateX(4px);
+    -ms-transform: translateX(4px);
+    -o-transform: translateX(4px);
+    transform: translateX(4px);
+    border-left-color: #BB6EC0;
+    margin: 0;
+}
+
+.cd-breadcrumb.triangle #second::after {
+    z-index: 1;
+    -webkit-transform: translateX(4px);
+    -moz-transform: translateX(4px);
+    -ms-transform: translateX(4px);
+    -o-transform: translateX(4px);
+    transform: translateX(4px);
+    border-left-color: #15478E;
+    margin: 0;
+}
+
+.cd-breadcrumb.triangle #third::after {
+    z-index: 1;
+    -webkit-transform: translateX(4px);
+    -moz-transform: translateX(4px);
+    -ms-transform: translateX(4px);
+    -o-transform: translateX(4px);
+    transform: translateX(4px);
+    border-left-color: #5597E5;
+    margin: 0;
+}
+
+.cd-breadcrumb.triangle li:first-of-type > * {
+    padding-left: 1.6em;
+    border-radius: .25em 0 0 .25em;
+}
+.cd-breadcrumb.triangle li:last-of-type > * {
+    padding-right: 1.6em;
+    border-radius: 0 .25em .25em 0;
+}

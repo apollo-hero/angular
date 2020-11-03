@@ -1,0 +1,17 @@
+<div class="modal fade" id="modalInstall" tabindex="-1">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-body text-center">
+				<p class="display-4 mb-5">Mobile</p>
+				<div class="row" *ngIf="deferredPrompt">
+					<div class="col-6">
+						<img class="img-fluid" src="/assets/img/mobile/android.png" (click)="installApp()">
+					</div>
+					<div class="col-6">
+						<img class="img-fluid" src="/assets/img//mobile/ios.png" (click)="installApp()">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

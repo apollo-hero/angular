@@ -1,0 +1,15 @@
+<div class="d-flex justify-content-center">
+	<div [class]="'form-label-group m-0 ' + classGroup">
+		<input *ngIf="data" [type]="type" [id]="id" class="form-control" [name]="name" [placeholder]="placeholder" [(ngModel)]="data[name]" [required]="required" (keyup.enter)="doEnter($event)">
+		<input *ngIf="!data" [type]="type" [id]="id" class="form-control" [name]="name" [placeholder]="placeholder" [required]="required" (keyup.enter)="doEnter($event)">
+		<label [for]="id" [class]="classInput">{{placeholder}}</label>
+	</div>
+	<button class="btn btn-primary" type="button" data-toggle="collapse" [attr.data-target]="'#clsCode'+id">
+		<i class="fa fa-qrcode"></i>
+	</button>
+</div>
+<div class="collapse" [id]="'clsCode'+id">
+	<div class="card card-body">
+		<qr-scanner (capturedQr)="scan($event)" [allowUpload]="true"></qr-scanner>
+	</div>
+</div>

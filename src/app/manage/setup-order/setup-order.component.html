@@ -1,0 +1,457 @@
+<app-header></app-header>
+<div class="container">
+	<div class="row mt-3">
+		<div class="d-none d-sm-block col-sm-3 mb-3">
+			<app-my-menu></app-my-menu>
+		</div>
+		<div class="d-block d-sm-none position-fixed" style="z-index: 1">
+			<button type="button" class="btn btn-dark box-shadow" data-toggle="collapse" data-target="#clsMenu"><i class="fa fa-bars"></i></button>
+			<div id="clsMenu" class="collapse bg-white">
+				<app-my-menu></app-my-menu>
+			</div>
+		</div>
+		<div class="col-sm-9">
+			<div class="card-deck">
+				<div class="card text-white bg-primary">
+					<div class="card-body">
+						<div class="d-flex justify-content-between">
+							<h5 class="card-title">{{page.count}}</h5>
+							<i class="fa fa-2x fa-pencil"></i>
+						</div>
+						<p class="card-text">Total</p>
+					</div>
+				</div>
+				<div class="card text-white bg-warning">
+					<div class="card-body">
+						<div class="d-flex justify-content-between">
+							<h5 class="card-title">{{orders[0]?.updated_dt | amTimeAgo}}</h5>
+							<i class="fa fa-2x fa-clock-o"></i>
+						</div>
+						<p class="card-text">Latest</p>
+					</div>
+				</div>
+			</div>
+			<hr/>
+			<ul class="nav nav-pills mb-3">
+				<li class="nav-item">
+					<button type="button" class="btn btn-outline-primary active" data-toggle="pill" data-target="#pills-1" (click)="loadOrder()">Order</button>
+				</li>
+				<li class="nav-item">
+					<button type="button" class="btn btn-outline-primary" data-toggle="pill" data-target="#pills-2">Parcel</button>
+				</li>
+				<li class="nav-item">
+					<button type="button" class="btn btn-outline-primary" data-toggle="pill" data-target="#pills-3">Track</button>
+				</li>
+			</ul>
+			<div class="tab-content" id="pills-tabContent">
+				<div class="tab-pane fade show active" id="pills-1">
+					<div class="d-flex justify-content-between">
+						<p class="lead">Orders</p>
+					</div>
+					<form #frmSearch="ngForm">
+						<div class="row no-gutters mb-3">
+							<div class="col-6 col-sm-8">
+								<app-input-group type="text" name="query" placeholder="Find by Order Number" [data]="frmSearch" required="true"></app-input-group>
+							</div>
+							<div class="col-6 col-sm-4">
+								<button type="button" class="btn btn-lg btn-primary" (click)="loadOrder({'or':[{'id':{'ilike': frmSearch['query']}}]})">Search</button>
+							</div>
+						</div>
+					</form>
+					<ul class="list-group list-group-horizontal float-right text-center">
+						<li class="list-group-item bg-secondary text-white" (click)="loadOrder({order_status: ''})">
+							<p class="m-0"></p>
+						</li>
+						<li class="list-group-item bg-purple text-white" (click)="loadOrder({order_status: 'await'})">
+							<p class="m-0"></p>
+						</li>
+						<li class="list-group-item bg-primary text-white" (click)="loadOrder({order_status: 'in transit'})">
+							<p class="m-0"></p>
+						</li>
+						<li class="list-group-item bg-info text-white" (click)="loadOrder({order_status: 'onboard'})">
+							<p class="m-0"></p>
+						</li>
+						<li class="list-group-item bg-success text-white" (click)="loadOrder({order_status: 'delivered'})">
+							<p class="m-0"></p>
+						</li>
+					</ul>
+					<div class="list-group table-responsive">
+						<div class="list-group-item" *ngFor="let data of orders; let i=index;" [ngClass]="{'bg-danger': data.deleted}">
+							<div class="d-flex justify-content-between">
+								<div class="btn-group">
+									<button type="button" class="btn btn-primary" (click)="loadParcel({orderId: data.id}); order = data; appServices.tab('pills-2')"><i class="fa fa-cubes"></i></button>
+									<button type="button" class="btn btn-info" (click)="loadTrack({orderId: data.id}); order = data; appServices.tab('pills-3')"><i class="fa fa-map-marker"></i></button>
+									<button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#modalEdit" (click)="appServices.assignFrm(frmEdit, data)"><i class="fa fa-edit"></i></button>
+									<button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#modalDelete" (click)="appServices.assignFrm(frmDelete, data)"><i class="fa fa-recycle"></i></button>
+								</div>
+								<div class="btn-group">
+									<button type="button" class="btn btn-dark" data-toggle="modal" data-target="#modalLabel">
+										<i class="fa fa-qrcode"></i>
+										<p class="m-0">Print Label</p>
+									</button>
+									<button type="button" *ngIf="data.order_status != 'delivered'" class="btn btn-outline-dark" data-toggle="modal" data-target="#modalOrderStatus" (click)="appServices.assignFrm(frmOrderStatus, data)">
+										<i class="fa fa-truck"></i>
+										<p class="m-0">Update Status</p>
+									</button>
+								</div>
+							</div>
+							<div class="d-flex justify-content-around py-3">
+								<div *ngIf="data.original">
+									<h4 class="m-0">{{data.original.address}}</h4>
+								</div>
+								<div class="my-auto w-25">
+									<span [class]="'fa-stack infinite-right ' + (i%2==0 ? 'even' : 'odd')">
+										<i class="fa fa-circle-thin fa-stack-2x"></i>
+										<i class="fa fa-stack-1x fa-angle-right"></i>
+									</span>
+									<span class="badge badge-info">{{data.order_status}}</span>
+								</div>
+								<div *ngIf="data.destination">
+									<h4 class="m-0">{{data.destination.address}}</h4>
+								</div>
+							</div>
+							<p>MyFreight Order Number: <app-clipboard [content]="data.id" [routerLink]="['/main/quotes/', data.id]"></app-clipboard></p>
+							<p>Courier Tracking Number: <app-clipboard *ngIf="data.code" [content]="data.code"></app-clipboard></p>
+							<div class="row py-3 px-5">
+								<div class="col-sm-6">
+									<p class="m-0"><strong>Collect From</strong></p>
+									<p class="m-0"><small>Contact:</small> {{data.contact_from}}</p>
+									<p class="m-0"><small>Phone:</small> {{data.phone_from}}</p>
+									<p class="m-0"><small>Email:</small> {{data.email_from}}</p>
+									<p class="m-0"><small>Company:</small> {{data.company_from}}</p>
+									<p class="m-0"><small>Preferred collection date:</small> {{data.collect_date | amDateFormat:'LL'}}</p>
+									<p class="m-0"><small>Pickup from door if unattended:</small> {{data.pick_door}}</p>
+									<p class="m-0"><small>Note:</small> {{data.note_from}}</p>
+								</div>
+								<div class="col-sm-6">
+									<p class="m-0"><strong>Deliver To</strong></p>
+									<p class="m-0"><small>Contact:</small> {{data.contact_to}}</p>
+									<p class="m-0"><small>Phone:</small> {{data.phone_to}}</p>
+									<p class="m-0"><small>Email:</small> {{data.email_to}}</p>
+									<p class="m-0"><small>Company:</small> {{data.company_to}}</p>
+									<p class="m-0"><small>Authority to leave at:</small> {{data.authority_leave}}</p>
+									<p class="m-0"><small>Note:</small> {{data.note_to}}</p>
+								</div>
+							</div>
+							<div class="row text-center">
+								<div class="col-sm-4">
+									<div class="bg-info text-white p-2">
+										<i class="fa fa-clock-o"></i>
+										<p class="m-0">{{data.updated_dt | amTimeAgo}}</p>
+									</div>
+								</div>
+								<div class="col-sm-4 my-auto">
+									<p class="m-0"><small>Pickup:</small> {{data.pickup_type}}</p>
+									<p class="m-0"><small>Dropoff:</small> {{data.drop_type}}</p>
+								</div>
+								<div class="col-sm-4 my-auto">
+									<p class="m-0"><small>Cost:</small> {{data.cost | currency:data.currency}}</p>
+									<p class="m-0"><small>Price:</small> {{data.price | currency:data.currency}}</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="d-flex justify-content-between p-3 box-shadow">
+						<div class="small text-muted my-auto"><b>{{orders.length}}</b> of <b>{{page.count}}</b> records</div>
+						<button type="button" class="btn btn-sm btn-dark" (click)="loadOrder(filter, true)">More</button>
+					</div>
+				</div>
+				<div class="tab-pane fade" id="pills-2">
+					<p class="m-0"><strong>Parcels</strong></p>
+					<ul class="list-group list-group-horizontal float-right text-center">
+						<li class="list-group-item bg-secondary text-white" (click)="loadParcel({parcel_status: ''})">
+							<p class="m-0"></p>
+						</li>
+						<li class="list-group-item bg-purple text-white" (click)="loadParcel({parcel_status: 'await'})">
+							<p class="m-0"></p>
+						</li>
+						<li class="list-group-item bg-primary text-white" (click)="loadParcel({parcel_status: 'in transit'})">
+							<p class="m-0"></p>
+						</li>
+						<li class="list-group-item bg-info text-white" (click)="loadParcel({parcel_status: 'onboard'})">
+							<p class="m-0"></p>
+						</li>
+						<li class="list-group-item bg-success text-white" (click)="loadParcel({parcel_status: 'delivered'})">
+							<p class="m-0"></p>
+						</li>
+					</ul>
+					<br>
+					<div class="card-columns">
+						<div class="card card-body border-0 box-shadow" *ngFor="let data of parcels" data-toggle="modal" data-target="#modalParcelStatus" (click)="appServices.assignFrm(frmParcelStatus, data)">
+							<span class="badge badge-info">{{data.parcel_status}}</span>
+							<p>{{data.qty ? data.qty : '1'}} x <strong>{{data.type}}</strong></p>
+							<p class="m-0 small">{{data.weight}}(gram)</p>
+							<p class="m-0 small" *ngIf="data.length && data.width && data.height">{{data.length}}(cm) x {{data.width}}(cm) x {{data.height}}(cm)</p>
+						</div>
+						<div class="card text-center bg-dark text-white" (click)="loadParcel(filterParcel, true)">
+							<div class="card-body">
+								<small><b>{{parcels.length}}</b> of <b>{{pageParcel.count}}</b> records</small>
+								<p class="m-0">More</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="tab-pane fade" id="pills-3">
+					<div class="d-flex justify-content-between">
+						<p class="m-0">Tracking order number <span class="badge badge-secondary" *ngIf="order">{{order.id}}</span></p>
+						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalLocation"><i class="fa fa-plus"></i></button>
+					</div>
+					<div class="list-group-item" *ngFor="let data of tracks" [ngClass]="{'bg-danger': data.deleted}">
+						<div class="d-flex justify-content-between">
+							<div *ngIf="data.location">
+								<span class="badge badge-warning">{{data.location.lat}}</span> <span class="badge badge-info">{{data.location.lng}}</span>
+								<p>{{data.location.address}}</p>
+							</div>
+							<div class="btn-group" *ngIf="data.location">
+								<button type="button" class="btn btn-outline-warning" data-toggle="modal" data-target="#modalLocation" (click)="appServices.assignFrm(frmLocation, {id: data.id, address: data.location.address, latlng: (data.location.lat + ',' + data.location.lng)})"><i class="fa fa-edit"></i></button>
+							</div>
+						</div>
+					</div>
+					<div class="d-flex justify-content-between p-3 box-shadow">
+						<div class="small text-muted my-auto"><b>{{tracks.length}}</b> of <b>{{pageTrack.count}}</b> records</div>
+						<button type="button" class="btn btn-sm btn-dark" (click)="loadTrack(filterTrack, true)">More</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="modalEdit" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+	<div class="modal-dialog modal-dialog-centered modal-lg">
+		<div class="modal-content">
+			<form #frmEdit="ngForm" autocomplete="off">
+				<input type="hidden" name="id" [(ngModel)]="frmEdit['id']">
+				<input type="hidden" name="code" [(ngModel)]="frmEdit['code']">
+				<input type="hidden" name="name" [(ngModel)]="frmEdit['name']">
+				<input type="hidden" name="pickup_type" [(ngModel)]="frmEdit['pickup_type']">
+				<input type="hidden" name="drop_type" [(ngModel)]="frmEdit['drop_type']">
+				<input type="hidden" name="price" [(ngModel)]="frmEdit['price']">
+				<input type="hidden" name="cost" [(ngModel)]="frmEdit['cost']">
+				<input type="hidden" name="currency" [(ngModel)]="frmEdit['currency']">
+				<input type="hidden" name="contact_from" [(ngModel)]="frmEdit['contact_from']" required="true">
+				<input type="hidden" name="phone_from" [(ngModel)]="frmEdit['phone_from']">
+				<input type="hidden" name="email_from" [(ngModel)]="frmEdit['email_from']" required="true">
+				<input type="hidden" name="company_from" [(ngModel)]="frmEdit['company_from']">
+				<input type="hidden" name="collect_date" [(ngModel)]="frmEdit['collect_date']">
+				<input type="hidden" name="pick_door" [(ngModel)]="frmEdit['pick_door']">
+				<input type="hidden" name="note_from" [(ngModel)]="frmEdit['note_from']">
+				<input type="hidden" name="contact_to" [(ngModel)]="frmEdit['contact_to']" required="true">
+				<input type="hidden" name="phone_to" [(ngModel)]="frmEdit['phone_to']">
+				<input type="hidden" name="email_to" [(ngModel)]="frmEdit['email_to']" required="true">
+				<input type="hidden" name="company_to" [(ngModel)]="frmEdit['company_to']">
+				<input type="hidden" name="authority_leave" [(ngModel)]="frmEdit['authority_leave']">
+				<input type="hidden" name="note_to" [(ngModel)]="frmEdit['note_to']">
+				<input type="hidden" name="originalId" [(ngModel)]="frmEdit['originalId']">
+				<input type="hidden" name="destinationId" [(ngModel)]="frmEdit['destinationId']">
+				<input type="hidden" name="courierId" [(ngModel)]="frmEdit['courierId']">
+				<div class="modal-header">
+					<div class="icon-box bg-warning text-white"> <i class="fa fa-exclamation fa-3x"></i> </div>
+				</div>
+				<div class="modal-body">
+					<app-input-group type="text" name="code" placeholder="Order Number" [data]="frmEdit"></app-input-group>
+					<app-input-group type="text" name="name" placeholder="A brief description of items being sent" [data]="frmEdit"></app-input-group>
+					<div class="row">
+						<div class="col-sm-6">
+							<small>Original</small>
+							<app-map [placeholder]="frmEdit['original'] ? frmEdit['original']['address'] : 'Original'" (keyup)="appServices.location($event.target.value, frmEdit, 'originalId')"></app-map>
+						</div>
+						<div class="col-sm-6">
+							<small>Destination</small>
+							<app-map [placeholder]="frmEdit['destination'] ? frmEdit['destination']['address'] : 'Destination'" (keyup)="appServices.location($event.target.value, frmEdit, 'destinationId')"></app-map>
+						</div>
+					</div>
+					<div class="text-center mb-5" *ngIf="frmEdit['courier']">
+						<small>Courier</small>
+						<p class="lead m-0" *ngIf="frmEdit['courier']['company']">
+							<span class="border border-dark p-4">{{frmEdit['courier']['company']['name']}}</span>
+						</p>
+					</div>
+					<hr>
+					<div class="row">
+						<div class="col-sm-4">
+							<app-input-group type="text" name="pickup_type" placeholder="Pickup Type" [data]="frmEdit" required="true"></app-input-group>
+							<app-input-group type="text" name="drop_type" placeholder="Drop Type" [data]="frmEdit" required="true"></app-input-group>
+							<app-input-group type="number" name="price" placeholder="Price" [data]="frmEdit" required="true"></app-input-group>
+							<app-input-group type="number" name="cost" placeholder="Cost" [data]="frmEdit" required="true"></app-input-group>
+							<app-input-group type="text" name="currency" placeholder="Currency" [data]="frmEdit" required="true"></app-input-group>
+							<app-input-group type="number" name="insurance" placeholder="Insurance" [data]="frmEdit" required="true"></app-input-group>
+							<app-switch name="dangerous" [data]="frmEdit" display="Items contains dangerous goods"></app-switch>
+						</div>
+						<div class="col-sm-8">
+							<div class="row mt-3">
+								<div class="col-sm-6">
+									<p>Collect From</p>
+									<app-input-group type="text" name="contact_from" placeholder="Contact" [data]="frmEdit" required="true"></app-input-group>
+									<app-input-group type="text" name="phone_from" placeholder="Phone" [data]="frmEdit" required="true"></app-input-group>
+									<app-input-group type="text" name="email_from" placeholder="Email" [data]="frmEdit" required="true"></app-input-group>
+									<app-input-group type="text" name="company_from" placeholder="Company" [data]="frmEdit" required="true"></app-input-group>
+									<app-input-group type="date" name="collect_date" [placeholder]="frmEdit['collect_date'] ? (frmEdit['collect_date'] | amDateFormat:'LL') : 'Preferred collection date'" [data]="frmEdit"></app-input-group>
+									<app-switch name="pick_door" [data]="frmEdit" display="Pickup from door if unattended"></app-switch>
+									<app-input-group type="text" name="note_from" placeholder="Other (Please specify)" [data]="frmEdit"></app-input-group>
+								</div>
+								<div class="col-sm-6">
+									<p>Deliver To</p>
+									<app-input-group type="text" name="contact_to" placeholder="Contact" [data]="frmEdit" required="true"></app-input-group>
+									<app-input-group type="text" name="phone_to" placeholder="Phone" [data]="frmEdit" required="true"></app-input-group>
+									<app-input-group type="text" name="email_to" placeholder="Email" [data]="frmEdit" required="true"></app-input-group>
+									<app-input-group type="text" name="company_to" placeholder="Company" [data]="frmEdit" required="true"></app-input-group>
+									<select class="form-control" name="authority_leave" [(ngModel)]="frmEdit['authority_leave']">
+										<option>-- Authority to leave at --</option>
+										<option value="front door">Front Door</option>
+										<option value="back door">Back Door</option>
+									</select>
+									<app-input-group type="text" name="note_to" placeholder="Other (Please specify)" [data]="frmEdit"></app-input-group>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer d-flex justify-content-between">
+					<div class="my-auto">
+						<small><em>Function update</em></small>
+					</div>
+					<div class="btn-group">
+						<button type="button" class="btn btn-dark" [disabled]="frmEdit.form.invalid" (click)="doSave(frmEdit.value); frmEdit.reset()"><i class="fa fa-save"></i></button>
+						<button type="button" class="btn btn-outline-dark" data-dismiss="modal" (click)="frmEdit.reset()"><i class="fa fa-times"></i></button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<div id="modalDelete" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<form #frmDelete="ngForm" autocomplete="off">
+				<input type="hidden" name="id" [(ngModel)]="frmDelete['id']">
+				<div class="modal-header">
+					<div class="icon-box bg-danger text-white"> <i class="fa fa-question fa-3x"></i> </div>
+				</div>
+				<div class="modal-body">
+					<div class="text-center my-5">
+						<p class="lead">Are you sure you want to delete this record?</p>
+						<small>(*) Please confirm because this action can not be revert</small>
+					</div>
+				</div>
+				<div class="modal-footer d-flex justify-content-between">
+					<div class="my-auto">
+						<small><em>Function delete</em></small>
+					</div>
+					<div class="btn-group">
+						<button type="button" class="btn btn-dark" (click)="doDelete(frmDelete.value)"><i class="fa fa-save"></i></button>
+						<button type="button" class="btn btn-outline-dark" data-dismiss="modal" (click)="frmDelete.reset()"><i class="fa fa-times"></i></button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<div id="modalLocation" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<form #frmLocation="ngForm" autocomplete="off">
+				<input type="hidden" name="id" [(ngModel)]="frmLocation['id']">
+				<input type="hidden" name="address" [(ngModel)]="frmLocation['address']">
+				<input type="hidden" name="latlng" [(ngModel)]="frmLocation['latlng']">
+				<div class="modal-header">
+					<div class="icon-box bg-warning text-white"> <i class="fa fa-exclamation fa-3x"></i> </div>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-sm-6">
+							<app-input-group type="text" name="address" placeholder="Address" [data]="frmLocation" required="true"></app-input-group>
+							<app-input-group type="text" name="latlng" placeholder="Lat,Lng" [data]="frmLocation" required="true"></app-input-group>
+						</div>
+						<div class="col-sm-6">
+							<iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" [attr.src]="'https://maps.google.com/maps?q=' + frmLocation['address'] + '&t=&z=13&ie=UTF8&iwloc=&output=embed' | safe:'resourceUrl'"></iframe>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer d-flex justify-content-between">
+					<div class="my-auto">
+						<small><em>Function update</em></small>
+					</div>
+					<div class="btn-group">
+						<button type="button" class="btn btn-dark" [disabled]="frmLocation.form.invalid" (click)="saveTrack(frmLocation.value); frmLocation.reset()"><i class="fa fa-save"></i></button>
+						<button type="button" class="btn btn-outline-dark" data-dismiss="modal" (click)="frmLocation.reset()"><i class="fa fa-times"></i></button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<div id="modalOrderStatus" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<form #frmOrderStatus="ngForm" autocomplete="off">
+				<input type="hidden" name="id" [(ngModel)]="frmOrderStatus['id']">
+				<div class="modal-header">
+					<div class="icon-box bg-warning text-white"> <i class="fa fa-exclamation fa-3x"></i> </div>
+				</div>
+				<div class="modal-body">
+					<select class="form-control" name="order_status" [(ngModel)]="frmOrderStatus['order_status']">
+						<option value="await">Awaiting Pickup</option>
+						<option value="in transit">In Transit</option>
+						<option value="onboard">Onboard For Delivery</option>
+						<option value="delivered">Delivered</option>
+					</select>
+				</div>
+				<div class="modal-footer d-flex justify-content-between">
+					<div class="my-auto">
+						<small><em>Function change status</em></small>
+					</div>
+					<div class="btn-group">
+						<button type="button" class="btn btn-dark" [disabled]="frmOrderStatus.form.invalid" (click)="doSave(frmOrderStatus.value); frmOrderStatus.reset()"><i class="fa fa-save"></i></button>
+						<button type="button" class="btn btn-outline-dark" data-dismiss="modal" (click)="frmOrderStatus.reset()"><i class="fa fa-times"></i></button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<div id="modalParcelStatus" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<form #frmParcelStatus="ngForm" autocomplete="off">
+				<input type="hidden" name="id" [(ngModel)]="frmParcelStatus['id']">
+				<div class="modal-header">
+					<div class="icon-box bg-warning text-white"> <i class="fa fa-exclamation fa-3x"></i> </div>
+				</div>
+				<div class="modal-body">
+					<select class="form-control" name="parcel_status" [(ngModel)]="frmParcelStatus['parcel_status']">
+						<option value="await">Awaiting Pickup</option>
+						<option value="in transit">In Transit</option>
+						<option value="onboard">Onboard For Delivery</option>
+						<option value="delivered">Delivered</option>
+					</select>
+				</div>
+				<div class="modal-footer d-flex justify-content-between">
+					<div class="my-auto">
+						<small><em>Function change status</em></small>
+					</div>
+					<div class="btn-group">
+						<button type="button" class="btn btn-dark" [disabled]="frmParcelStatus.form.invalid" (click)="saveParcel(frmParcelStatus.value); frmParcelStatus.reset()"><i class="fa fa-save"></i></button>
+						<button type="button" class="btn btn-outline-dark" data-dismiss="modal" (click)="frmParcelStatus.reset()"><i class="fa fa-times"></i></button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<div id="modalLabel" class="modal fade" tabindex="-1">
+	<div class="modal-dialog modal-dialog-centered modal-lg">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-sm-6">
+						<img class="img-fluid" src="https://help.qapla.it/wp-content/uploads/2018/05/Label-UPS_Zebra.png">
+					</div>
+					<div class="col-sm-6 my-auto">
+						<h3>Label of delivery</h3>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<app-footer></app-footer>

@@ -1,0 +1,5 @@
+<router-outlet (deactivate)="onDeactivate()"></router-outlet>
+<div class="fb-customerchat" *ngIf="app && app.fb_messenger_id" [attr.page_id]="app.fb_messenger_id"> </div>
+<div id="loading" style="display:none">
+	<i class="fa fa-circle-o-notch fa-spin fa-3x"></i>
+</div>

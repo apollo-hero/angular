@@ -1,0 +1,33 @@
+.bg-color {
+    background: #F5F9FC;
+}
+.trapezoid {
+    border-bottom: 38px solid #18488B;
+    border-left: 18px solid transparent;
+    border-right: 18px solid transparent;
+    height: 42px;
+    width: 200px;
+    opacity: 17px;
+    transform: rotate(180deg);
+}
+.outer-box {
+    transform: rotate(180deg) !important;
+    text-align: center;
+    height: 38px;
+}
+.p-profile {
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+}
+h4{
+    font-family: "Montserrat", sans-serif;
+    color: #15478E;
+}
+.submit-btn {
+    background: #18488B;
+    color: #fff;
+    font-size: 24px;
+    font-weight: 700;
+    border-radius: 3px;
+}

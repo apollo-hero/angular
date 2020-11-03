@@ -1,0 +1,9 @@
+<div class="text-center">
+	<div [class]="'embed-responsive embed-responsive-' + ratio" *ngIf="isVideo">
+		<video class="embed-responsive-item" autoplay loop>
+			<source [src]="src | safe:'resourceUrl'" type="video/mp4" (error)="isVideo=false" />
+			Your browser does not support the video tag.
+		</video>
+	</div>
+	<img [class]="'img-fluid ' + imgClass" *ngIf="!isVideo" [src]="src" [attr.style]="'height:'+height | safe:'style'" onerror="this.src='/assets/img/_sys/no-photo.png'" [alt]="alt ? alt : src">
+</div>

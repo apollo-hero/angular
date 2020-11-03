@@ -1,0 +1,145 @@
+.bg-color {
+    background: #F5F9FC;
+}
+.trapezoid {
+    border-bottom: 38px solid #18488B;
+    border-left: 18px solid transparent;
+    border-right: 18px solid transparent;
+    height: 42px;
+    width: 200px;
+    opacity: 17px;
+    transform: rotate(180deg);
+}
+.outer-box {
+    transform: rotate(180deg) !important;
+    text-align: center;
+    height: 38px;
+}
+.p-profile {
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+
+.Courier{
+    background-color: #fdd12f;
+}
+.Courier > strong{
+    color: #d01948;
+}
+
+.TNT{
+    border-color: #fc6720 ;
+}
+
+.TNT > strong{
+    color: #fc6720;
+}
+
+.Direct{
+    background-color: #eb4e3e;
+}
+
+.Direct > strong{
+    color: #ffffff;
+}
+
+.TOLL{
+    background-color: #0f7f79;
+}
+
+.TOLL > strong{
+    color: #ffffff;
+}
+
+.Fastway{
+    background-color: #053482;
+}
+
+.Fastway > strong{
+    color: #ffffff;
+}
+
+.Hunter{
+    background-color: #ffb02c;
+}
+
+.Hunter > strong{
+    color: #053482;
+}
+
+
+.UPS{
+    background-color: #351c14;
+}
+
+.UPS > strong{
+    color: #fcb415;
+}
+
+.Startrack{
+    background-color: #00a2d3;
+}
+
+.Startrack > strong{
+    color: #003968;
+}
+
+.Sherpa{
+    background-color: #00a2d3;
+}
+
+.Sherpa > strong{
+    color: white;
+}
+
+.submit-btn {
+    background: #18488B;
+    color: #fff;
+    font-size: 24px;
+    font-weight: 700;
+}
+h4{
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400;
+    margin: 0 0 20px 0;
+    padding: 0;
+    color: #15478E;
+}
+h5{
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400;
+    margin: 0 0 20px 0;
+    padding: 0;
+    color: #15478E;
+}
+.discrap {
+    color: #82878b;
+    font-weight: 700;
+    text-align: center;
+    margin-top: 10px;
+}
+h6 {
+    font-family: "Montserrat", sans-serif;
+    margin: 0 0 20px 0;
+    padding: 0;
+}
+
+.btn {
+    display: inline-block;
+    font-weight: 700;
+    text-align: center;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid #D2D2D2;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}

@@ -1,0 +1,272 @@
+{
+	"customer": {
+		"": "customer",
+		"info": "customer info"
+	},
+	"doctor": {
+		"": "doctor"
+	},
+	"name": {
+		"": "name"
+	},
+	"phone": {
+		"": "phone"
+	},
+	"password": {
+		"": "password"
+	},
+	"email": {
+		"or phone": "email or phone"
+	},
+	"check": {
+		"": "check"
+	},
+	"access": {
+		"": "access"
+	},
+	"booking": {
+		"": "booking"
+	},
+	"fullname": {
+		"": "fullname"
+	},
+	"birthday": {
+		"": "birthday"
+	},
+	"mobile": {
+		"": "mobile"
+	},
+	"gender": {
+		"": "gender"
+	},
+	"male": {
+		"": "male"
+	},
+	"female": {
+		"": "female"
+	},
+	"address": {
+		"": "address"
+	},
+	"ward": {
+		"": "ward"
+	},
+	"district": {
+		"": "district"
+	},
+	"province": {
+		"": "province"
+	},
+	"city": {
+		"": "city"
+	},
+	"ethnic": {
+		"": "ethnic"
+	},
+	"relatives": {
+		"": "relatives"
+	},
+	"reason": {
+		"": "reason"
+	},
+	"insurance": {
+		"": "insurance"
+	},
+	"career": {
+		"": "career"
+	},
+	"workplace": {
+		"": "workplace"
+	},
+	"passport": {
+		"": "passport"
+	},
+	"national": {
+		"": "national"
+	},
+	"confirm": {
+		"": "confirm"
+	},
+	"patient": {
+		"": "patient",
+		"code": "patient code",
+		"records": "patient records",
+		"status": "patient status"
+	},
+	"search": {
+		"": "search"
+	},
+	"code": {
+		"": "code"
+	},
+	"assign": {
+		"": "assign"
+	},
+	"fee": {
+		"": "fee"
+	},
+	"service": {
+		"": "service"
+	},
+	"age": {
+		"": "age"
+	},
+	"diagnose": {
+		"": "diagnose",
+		"incoming": "diagnose incoming",
+		"outpatient": "diganose outpatient"
+	},
+	"medicine": {
+		"": "medicine"
+	},
+	"indicators": {
+		"": "indicators"
+	},
+	"conditions": {
+		"": "conditions"
+	},
+	"quantity": {
+		"": "quantity"
+	},
+	"inventory":  {
+		"": "inventory"
+	},
+	"ingredient":  {
+		"": "ingredient"
+	},
+	"supplier":  {
+		"": "supplier"
+	},
+	"cost":  {
+		"": "cost"
+	},
+	"info":  {
+		"": "info"
+	},
+	"conclusion":  {
+		"": "conclusion"
+	},
+	"morning":  {
+		"": "morning"
+	},
+	"noon":  {
+		"": "noon"
+	},
+	"afternoon":  {
+		"": "afternoon"
+	},
+	"night":  {
+		"": "night"
+	},
+	"day":  {
+		"": "day"
+	},
+	"empty": {
+		"": "empty",
+		"records": "empty records"
+	},
+	"pay":  {
+		"": "pay"
+	},
+	"paid":  {
+		"": "paid"
+	},
+	"discount":  {
+		"": "discount"
+	},
+	"received":  {
+		"": "received"
+	},
+	"cash":  {
+		"": "cash"
+	},
+	"cancel": {
+		"": "cancel",
+		"payment": "cancel payment"
+	},
+	"please": {
+		"": "please",
+		"check before cancel": "please check before cancel"
+	},
+	"vietnamese":  {
+		"": "vietnamese"
+	},
+	"group": {
+		"": "group",
+		"code": "group code"
+	},
+	"chapter": {
+		"": "chapter",
+		"code": "chapter code"
+	},
+	"edit":  {
+		"": "edit"
+	},
+	"save":  {
+		"": "save"
+	},
+	"description":  {
+		"": "description"
+	},
+	"copy":  {
+		"": "copy"
+	},
+	"default": {
+		"": "default",
+		"new": "new default"
+	},
+	"describe":  {
+		"": "describe"
+	},
+	"extend":  {
+		"": "extend"
+	},
+	"time":  {
+		"": "time"
+	},
+	"summary":  {
+		"": "summary"
+	},
+	"temperature":  {
+		"": "temperature"
+	},
+	"weight":  {
+		"": "weight"
+	},
+	"height":  {
+		"": "height"
+	},
+	"family":  {
+		"": "family"
+	},
+	"health":  {
+		"": "health"
+	},
+	"totality":  {
+		"": "totality"
+	},
+	"form": {
+		"": "from",
+		"date": "from date"
+	},
+	"to": {
+		"": "to",
+		"date": "to date"
+	},
+	"methodology":  {
+		"": "methodology"
+	},
+	"treatment": {
+		"": "treatment",
+		"direction": "treatment direction"
+	},
+	"list":  {
+		"": "list"
+	},
+	"user":  {
+		"": "user"
+	},
+	"content":  {
+		"": "content"
+	}
+}

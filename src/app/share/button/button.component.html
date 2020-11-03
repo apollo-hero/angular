@@ -1,0 +1,4 @@
+<button [class]="'btn ' + classBtn" type="button" [disabled]="disabled" (click)="click($event)">
+	<span *ngIf="!loading" class="spinner-grow spinner-grow-sm"></span>
+	<span *ngIf="loading">{{label}}</span>
+</button>

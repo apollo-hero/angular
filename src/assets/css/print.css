@@ -1,0 +1,33 @@
+@media print {
+  @page {
+    size: auto;
+  }
+  * {
+    overflow: hidden;
+  }
+  body {
+    color: #000 !important;
+    /*font-size: 12.5px;*/
+    print-color-adjust: exact !important;
+    -webkit-print-color-adjust: exact !important;
+    /*writing-mode: tb-rl;*/
+  }
+  h1, h2, h3, h4, h5, h6,
+  .h1, .h2, .h3, .h4, .h5, .h6 {
+    color: #000 !important;
+  }
+  table {
+    width: 100%;
+    height: 90vh;
+    table-layout: fixed;
+  }
+  table th, table td {
+    border: 1px solid #000;
+    width: auto;
+    min-width: auto;
+    max-width: auto;
+  }
+  pre {
+    border: none;
+  }
+}

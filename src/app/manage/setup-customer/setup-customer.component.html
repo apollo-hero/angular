@@ -1,0 +1,133 @@
+<app-header></app-header>
+<div class="container">
+	<div class="row mt-3">
+		<div class="d-none d-sm-block col-sm-3 mb-3">
+			<app-my-menu></app-my-menu>
+		</div>
+		<div class="d-block d-sm-none position-fixed" style="z-index: 1">
+			<button type="button" class="btn btn-dark box-shadow" data-toggle="collapse" data-target="#clsMenu"><i class="fa fa-bars"></i></button>
+			<div id="clsMenu" class="collapse bg-white">
+				<app-my-menu></app-my-menu>
+			</div>
+		</div>
+		<div class="col-sm-9">
+			<div class="card-deck">
+				<div class="card text-white bg-primary">
+					<div class="card-body">
+						<div class="d-flex justify-content-between">
+							<h5 class="card-title">{{page.count}}</h5>
+							<i class="fa fa-2x fa-pencil"></i>
+						</div>
+						<p class="card-text">Total</p>
+					</div>
+				</div>
+				<div class="card text-white bg-warning">
+					<div class="card-body">
+						<div class="d-flex justify-content-between">
+							<h5 class="card-title">{{customers[0]?.updated_dt | amTimeAgo}}</h5>
+							<i class="fa fa-2x fa-clock-o"></i>
+						</div>
+						<p class="card-text">Latest</p>
+					</div>
+				</div>
+			</div>
+			<hr/>
+			<div class="d-flex justify-content-between">
+				<p class="lead">Customers</p>
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalEdit"> <i class="fa fa-plus"></i> </button>
+			</div>
+			<div class="list-group table-responsive">
+				<div class="list-group-item" *ngFor="let data of customers" [ngClass]="{'bg-danger': data.deleted}">
+					<div class="d-flex justify-content-between">
+						<div>
+							<strong>{{data.name}}</strong>
+							<div *ngIf="data.course">
+								<small class="badge badge-secondary">{{data.updated_dt | amTimeAgo}}</small>
+							</div>
+							<p class="small m-0"><i class="fa fa-envelope-o"></i> {{data.email}}</p>
+							<p class="small m-0"><i class="fa fa-phone"></i> {{data.phone}}</p>
+							<p class="small m-0"><i class="fa fa-map-marker"></i> {{data.address}}</p>
+						</div>
+						<div>
+							<div class="btn-group mb-3">
+								<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modalEdit" (click)="appServices.assignFrm(frmEdit, data)"><i class="fa fa-edit"></i></button>
+								<button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#modalForgot" (click)="appServices.assignFrm(frmForgot, data)"><i class="fa fa-key"></i></button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="d-flex justify-content-between p-3 box-shadow">
+				<div class="small text-muted my-auto"><b>{{customers.length}}</b> of <b>{{page.count}}</b> records</div>
+				<button type="button" class="btn btn-sm btn-dark" (click)="doLoad(filter, true)">More</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="modalEdit" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+	<div class="modal-dialog modal-dialog-centered modal-lg">
+		<div class="modal-content">
+			<form #frmEdit="ngForm" autocomplete="off">
+				<input type="hidden" name="id" [(ngModel)]="frmEdit['id']">
+				<input type="hidden" name="name" [(ngModel)]="frmEdit['name']">
+				<input type="hidden" name="photo" [(ngModel)]="frmEdit['photo']">
+				<input type="hidden" name="dob" [(ngModel)]="frmEdit['dob']">
+				<input type="hidden" name="email" [(ngModel)]="frmEdit['email']">
+				<input type="hidden" name="phone" [(ngModel)]="frmEdit['phone']">
+				<input type="hidden" name="address" [(ngModel)]="frmEdit['address']">
+				<div class="modal-header">
+					<div class="icon-box bg-warning text-white"> <i class="fa fa-exclamation fa-3x"></i> </div>
+				</div>
+				<div class="modal-body">
+					<div class="row mb-3">
+						<div class="col-sm-6">
+							<app-input-group type="text" name="name" placeholder="Name" [data]="frmEdit" required="true"></app-input-group>
+							<app-input-group type="email" name="email" placeholder="Email" [data]="frmEdit" required="true"></app-input-group>
+							<app-input-group type="tel" name="phone" placeholder="Phone" [data]="frmEdit" required="true"></app-input-group>
+							<app-input-group type="date" name="dob" [placeholder]="frmEdit['dob'] ? (frmEdit['dob'] | amDateFormat:'LL') : 'Date of birth'" [data]="frmEdit" required="true"></app-input-group>
+							<app-input-group type="text" name="address" placeholder="Address" [data]="frmEdit" required="true"></app-input-group>
+						</div>
+						<div class="col-sm-6">
+							<app-drive-zone (uploaded)="appServices.assignFrm(frmEdit, {'photo': $event})"></app-drive-zone>
+							<app-img [src]="frmEdit['photo']"></app-img>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer d-flex justify-content-between">
+					<div class="my-auto">
+						<small><em>Function update</em></small>
+					</div>
+					<div class="btn-group">
+						<button type="button" class="btn btn-dark" [disabled]="frmEdit.form.invalid" (click)="doSave(frmEdit.value); frmEdit.reset()"><i class="fa fa-save"></i></button>
+						<button type="button" class="btn btn-outline-dark" data-dismiss="modal" (click)="frmEdit.reset()"><i class="fa fa-times"></i></button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="modalForgot" tabindex="-1" data-backdrop="static" data-keyboard="false">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<form #frmForgot="ngForm" autocomplete="off">
+				<input type="hidden" name="id" [(ngModel)]="frmForgot['id']">
+				<input type="hidden" name="email" [(ngModel)]="frmForgot['email']">
+				<input type="hidden" name="user" [(ngModel)]="frmForgot['user']">
+				<div class="modal-header">
+					<div class="icon-box bg-warning text-white"> <i class="fa fa-question fa-3x"></i> </div>
+				</div>
+				<div class="modal-body p-3">
+					<div class="text-center my-5">
+						<p class="lead">Lost your password?</p>
+						<small>(*) New password will send into your email, please check it after proceed</small>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-warning" [disabled]="frmForgot.form.invalid" (click)="doForget(frmForgot.value)" data-dismiss="modal"><i class="fa fa-save"></i></button>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times"></i></button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<app-footer></app-footer>

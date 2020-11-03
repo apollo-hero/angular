@@ -1,0 +1,1 @@
+if ('serviceWorker' in navigator) {window.addEventListener('load', ()=> {navigator .serviceWorker .register('/assets/vendors/pwa/sw.js') .then(()=>{}) .catch(()=>console.log("Err PWA")); }); }

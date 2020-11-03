@@ -1,0 +1,26 @@
+.bg-purple {
+  background-color: #bc6dbc !important;
+}
+.text-purple {
+  color: #bc6dbc !important;
+}
+
+.btn-primary {
+  background-color: #18488B !important;
+  border-color: #18488B !important;
+}
+.text-primary {
+  color: #18488B !important;
+}
+.bg-info {
+  background-color: #5597e5 !important;
+}
+.text-info {
+  color: #5597e5 !important;
+}
+.bg-success {
+  background-color: #59e26e !important;
+}
+.text-success {
+  color: #59e26e !important;
+}

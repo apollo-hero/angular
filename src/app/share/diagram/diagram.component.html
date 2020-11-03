@@ -1,0 +1,13 @@
+<div [class]="'row ' + classGroup" *ngIf="label">
+	<div class="col-sm-6">
+		<small>{{label}}</small>
+		<textarea class="form-control" rows="5" [name]="name" [(ngModel)]="data[name]" (click)="change($event.target.value)" (change)="change($event.target.value)"></textarea>
+		<button type="button" class="btn btn-dark position-absolute" style="right: 0; top: 0" (click)="compile()">Compile</button>
+	</div>
+	<div class="col-sm-6 my-auto">
+		<div *ngIf="data[name]" [id]="id" class="mermaid overflow-auto" [innerHtml]="data[name]"><svg [id]="'mermaid-' + id"></svg></div>
+	</div>
+</div>
+<div *ngIf="!label">
+	<div *ngIf="data[name]" [id]="id" class="mermaid overflow-auto" [innerHtml]="data[name]"><svg [id]="'mermaid-' + id"></svg></div>
+</div>
