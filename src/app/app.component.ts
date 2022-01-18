@@ -9,7 +9,7 @@ import {FirebaseService} from './addon/firebase.service';
 
 import {AuthService, AuthServiceConfig, FacebookLoginProvider} from 'angularx-social-login';
 
-// import 'bootstrap/js/dist/collapse';
+// 'bootstrap/js/dist/collapse';
 import 'bootstrap/js/dist/scrollspy';
 
 @Component({
