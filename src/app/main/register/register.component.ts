@@ -19,13 +19,13 @@ export class RegisterComponent implements OnInit {
 			titleService.setTitle(`Authenticate | ${this.app.name}`);
 			appServices.setCanonical();
 
-			// this.authService = new AuthService(new AuthServiceConfig([{
-			// 	id: GoogleLoginProvider.PROVIDER_ID,
-			// 	provider: new GoogleLoginProvider(this.app.gg_oath_id)
-			// }, {
-			// 	id: FacebookLoginProvider.PROVIDER_ID,
-			// 	provider: new FacebookLoginProvider(this.app.fb_app_id)
-			// }]))
+			this.authService = new AuthService(new AuthServiceConfig([{
+				id: GoogleLoginProvider.PROVIDER_ID,
+				provider: new GoogleLoginProvider(this.app.gg_oath_id)
+			}, {
+				id: FacebookLoginProvider.PROVIDER_ID,
+				provider: new FacebookLoginProvider(this.app.fb_app_id)
+			}]))
 		}
 	}
 
@@ -43,46 +43,46 @@ export class RegisterComponent implements OnInit {
 		}).catch((err) => {})
 	}
 	loginFB() {
-		// this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then(data => {
-		// 	this.appServices.api('post', 'members/register', {
-		// 		email: data.email,
-		// 		sid: data.id,
-		// 		appcode: this.appServices.appcode
-		// 	}).then((obj) => {
-		// 		let res = obj.response;
-		// 		this.updateNotify(res.data)
-		// 	}).catch((err) => {
-		// 		if(JSON.stringify(err).includes('"status":404,"statusText":"Not Found"')) {
-		// 			this.doSignup({value: {
-		// 				name: data.name,
-		// 				email: data.email,
-		// 				photo: data.photoUrl,
-		// 				fbid: data.id
-		// 			}})
-		// 		}
-		// 	})
-		// });
+		this.authService.signIn(FacebookLoginProvider.PROVIDER_ID).then(data => {
+			this.appServices.api('post', 'members/register', {
+				email: data.email,
+				sid: data.id,
+				appcode: this.appServices.appcode
+			}).then((obj) => {
+				let res = obj.response;
+				this.updateNotify(res.data)
+			}).catch((err) => {
+				if(JSON.stringify(err).includes('"status":404,"statusText":"Not Found"')) {
+					this.doSignup({value: {
+						name: data.name,
+						email: data.email,
+						photo: data.photoUrl,
+						fbid: data.id
+					}})
+				}
+			})
+		});
 	}
 	loginGG() {
-		// this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then(data => {
-		// 	this.appServices.api('post', 'members/register', {
-		// 		email: data.email,
-		// 		sid: data.id,
-		// 		appcode: this.appServices.appcode
-		// 	}).then((obj) => {
-		// 		let res = obj.response;
-		// 		this.updateNotify(res.data)
-		// 	}).catch((err) => {
-		// 		if(JSON.stringify(err).includes('"status":404,"statusText":"Not Found"')) {
-		// 			this.doSignup({value: {
-		// 				name: data.name,
-		// 				email: data.email,
-		// 				photo: data.photoUrl,
-		// 				ggid: data.id
-		// 			}})
-		// 		}
-		// 	})
-		// });
+		this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then(data => {
+			this.appServices.api('post', 'members/register', {
+				email: data.email,
+				sid: data.id,
+				appcode: this.appServices.appcode
+			}).then((obj) => {
+				let res = obj.response;
+				this.updateNotify(res.data)
+			}).catch((err) => {
+				if(JSON.stringify(err).includes('"status":404,"statusText":"Not Found"')) {
+					this.doSignup({value: {
+						name: data.name,
+						email: data.email,
+						photo: data.photoUrl,
+						ggid: data.id
+					}})
+				}
+			})
+		});
 	}
 	doSignup(frm) {
 		let data = frm.value;
@@ -96,16 +96,16 @@ export class RegisterComponent implements OnInit {
 			this.appServices.session = data;
 			this.router.navigate(['/main/profile/', res.id]);
 
-			// this.appServices.api('post', null, {
-			// 	model: `register`, 
-			// 	body: Object.assign(data, {id: res.data.uid, pwd: res.data.pwd, is_sendmail: true, website: window.location.href})
-			// }, frm, true).then((obj) => {
-			// 	console.log(obj.response);
-			// 	let res = obj.response
-			// 	this.updateNotify(res.data)
-			// }).catch((err) => {
-			// 	console.log(err);
-			// })
+			this.appServices.api('post', null, {
+				model: `register`, 
+				body: Object.assign(data, {id: res.data.uid, pwd: res.data.pwd, is_sendmail: true, website: window.location.href})
+			}, frm, true).then((obj) => {
+				console.log(obj.response);
+				let res = obj.response
+				this.updateNotify(res.data)
+			}).catch((err) => {
+				console.log(err);
+			})
 		}).catch((err) => {})
 	}
 	doForget(frm) {
